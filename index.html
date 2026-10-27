@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SUPER FORMULA 1 - Mobile Arcade</title>
+  <title>SUPER F1 - 100 Fases & Moedas</title>
   
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,7 +56,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: rgba(5, 5, 12, 0.94);
+      background: rgba(5, 5, 12, 0.95);
       z-index: 10;
       transition: opacity 0.3s ease;
       padding: 20px;
@@ -68,11 +68,11 @@
     }
     .title {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       font-weight: 900;
       font-style: italic;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #ff0055, #ff5500, #ffcc00);
+      background: linear-gradient(135deg, #ffcc00, #ff5500, #ff0055);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-align: center;
@@ -83,7 +83,7 @@
       color: #00f0ff;
       letter-spacing: 3px;
       text-transform: uppercase;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       text-align: center;
     }
     .section-title {
@@ -98,41 +98,46 @@
     .tracks-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
+      gap: 6px;
       width: 100%;
       max-width: 850px;
+      max-height: 220px;
+      overflow-y: auto;
       margin-bottom: 12px;
+      padding: 5px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
     }
     @media (max-width: 850px) {
-      .tracks-grid { grid-template-columns: repeat(3, 1fr); }
+      .tracks-grid { grid-template-columns: repeat(4, 1fr); }
     }
     @media (max-width: 550px) {
-      .tracks-grid { grid-template-columns: repeat(2, 1fr); }
+      .tracks-grid { grid-template-columns: repeat(3, 1fr); }
     }
     .track-card {
       background: rgba(255, 255, 255, 0.05);
       border: 2px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
-      padding: 8px;
+      padding: 6px;
       cursor: pointer;
       text-align: center;
       position: relative;
     }
     .track-card.active {
-      border-color: #ff0055;
-      background: rgba(255, 0, 85, 0.2);
+      border-color: #ffcc00;
+      background: rgba(255, 204, 0, 0.2);
     }
     .track-card.locked {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
     }
-    .track-icon { font-size: 1.5rem; }
-    .track-name { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: #fff; margin-top: 2px; }
+    .track-icon { font-size: 1.2rem; }
+    .track-name { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; color: #fff; margin-top: 2px; }
 
     .garage-grid {
       display: flex;
       gap: 8px;
-      margin-bottom: 18px;
+      margin-bottom: 15px;
       flex-wrap: wrap;
       justify-content: center;
       max-width: 850px;
@@ -148,8 +153,8 @@
       gap: 6px;
     }
     .car-card.active {
-      border-color: #ffcc00;
-      background: rgba(255, 204, 0, 0.2);
+      border-color: #ff0055;
+      background: rgba(255, 0, 85, 0.2);
     }
     .car-color-dot { width: 12px; height: 12px; border-radius: 50%; }
 
@@ -211,7 +216,7 @@
       top: 65px;
       right: 15px;
       background: rgba(5, 5, 12, 0.85);
-      border: 2px solid #ff0055;
+      border: 2px solid #ffcc00;
       border-radius: 50%;
       width: 80px;
       height: 80px;
@@ -219,12 +224,11 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+      box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
     }
     .speed-val { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 0.9; }
-    .speed-unit { font-size: 0.5rem; color: #ff0055; letter-spacing: 1px; margin-top: 2px; }
+    .speed-unit { font-size: 0.5rem; color: #ffcc00; letter-spacing: 1px; margin-top: 2px; }
 
-    /* CONTROLES TOUCH AMPLIADOS */
     .touch-controls-left {
       position: absolute;
       bottom: 25px;
@@ -257,8 +261,8 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
     .touch-btn:active, .touch-btn.pressed {
-      background: rgba(0, 240, 255, 0.5);
-      border-color: #00f0ff;
+      background: rgba(255, 204, 0, 0.5);
+      border-color: #ffcc00;
       transform: scale(0.95);
     }
     .btn-turbo {
@@ -290,13 +294,13 @@
     <canvas id="canvas"></canvas>
 
     <div id="menu-overlay" class="overlay">
-      <h1 class="title">SUPER F1</h1>
-      <div class="subtitle">Formula 1 Mobile Edition</div>
+      <h1 class="title">F1 COIN RUSH</h1>
+      <div class="subtitle">100 Fases - Colete Moedas</div>
 
-      <div class="section-title">Fase / Pista</div>
+      <div class="section-title">Selecionar Fase (1 a 100)</div>
       <div class="tracks-grid" id="tracks-grid"></div>
 
-      <div class="section-title">Equipe / Cor do F1</div>
+      <div class="section-title">Equipe F1</div>
       <div class="garage-grid" id="garage-grid"></div>
 
       <button id="start-btn" class="btn">INICIAR CORRIDA</button>
@@ -306,7 +310,7 @@
       <div id="result-modal">
         <h2 id="result-title"></h2>
         <p id="result-desc" style="font-size: 1.2rem; margin-bottom: 20px;"></p>
-        <button id="result-btn" class="btn">CONTINUAR</button>
+        <button id="result-btn" class="btn">PRÓXIMA FASE</button>
       </div>
     </div>
 
@@ -317,13 +321,13 @@
           <div class="hud-value" id="hud-time">60.0</div>
         </div>
         <div class="hud-box" style="text-align: center;">
-          <div class="hud-label" id="hud-track-name">FASE</div>
+          <div class="hud-label" id="hud-track-name">FASE 1</div>
           <div class="hud-value" id="hud-progress" style="color: #00f0ff; font-size: 1rem;">0%</div>
           <div class="nitro-container"><div class="nitro-bar" id="nitro-bar"></div></div>
         </div>
         <div class="hud-box" style="text-align: right;">
-          <div class="hud-label">Pontos</div>
-          <div class="hud-value" id="hud-score">0</div>
+          <div class="hud-label">Moedas / Pontos</div>
+          <div class="hud-value" id="hud-score" style="color: #ffcc00;">0</div>
         </div>
       </div>
 
@@ -332,13 +336,11 @@
         <div class="speed-unit">KM/H</div>
       </div>
 
-      <!-- CONTROLES DE DIREÇÃO -->
       <div class="touch-controls-left">
         <div class="touch-btn" id="btn-left">◀</div>
         <div class="touch-btn" id="btn-right">▶</div>
       </div>
 
-      <!-- ACELERADOR, FREIO E TURBO -->
       <div class="touch-controls-right">
         <div class="touch-btn btn-turbo" id="btn-turbo">⚡</div>
         <div class="pedals-group">
@@ -350,20 +352,38 @@
   </div>
 
   <script>
-    const TRACKS = [
-      { id: 'synthwave', name: 'Synthwave', icon: '🌃', unlocked: true, length: 900, timeLimit: 55, skyGradient: ['#0d0221', '#ff0055'], groundColor: '#0a0a16', grassColors: ['#120826', '#1a0b36'], rumbleColors: ['#ff0055', '#00f0ff'], roadColor: '#181828', lineColor: '#fff' },
-      { id: 'desert', name: 'Desert', icon: '🏜️', unlocked: false, length: 1100, timeLimit: 50, skyGradient: ['#2b0400', '#ff7700'], groundColor: '#4a1500', grassColors: ['#cc5200', '#b34700'], rumbleColors: ['#fff', '#ff3300'], roadColor: '#332218', lineColor: '#ffcc00' },
-      { id: 'snow', name: 'Snow', icon: '🏔️', unlocked: false, length: 1200, timeLimit: 48, skyGradient: ['#021029', '#00ffcc'], groundColor: '#dbeeff', grassColors: ['#a6d2ed', '#8cbcdb'], rumbleColors: ['#0088ff', '#fff'], roadColor: '#2c3540', lineColor: '#fff' },
-      { id: 'tropical', name: 'Tropical', icon: '🌅', unlocked: false, length: 1300, timeLimit: 45, skyGradient: ['#1c002b', '#ffcc00'], groundColor: '#2b1a09', grassColors: ['#0d5e3a', '#08472b'], rumbleColors: ['#ffcc00', '#fff'], roadColor: '#242424', lineColor: '#fff' },
-      { id: 'cyber', name: 'Cyber', icon: '⚡', unlocked: false, length: 1400, timeLimit: 42, skyGradient: ['#000000', '#006466'], groundColor: '#020b14', grassColors: ['#003554', '#051923'], rumbleColors: ['#00ffcc', '#ff00ff'], roadColor: '#0a1118', lineColor: '#00ffcc' }
+    // Geração automática de 100 Fases
+    const TRACKS = [];
+    const themes = [
+      { name: 'Neon City', sky: ['#0d0221', '#ff0055'], ground: '#0a0a16', grass: ['#120826', '#1a0b36'], rumble: ['#ff0055', '#00f0ff'], road: '#181828', line: '#fff' },
+      { name: 'Desert Sun', sky: ['#2b0400', '#ff7700'], ground: '#4a1500', grass: ['#cc5200', '#b34700'], rumble: ['#fff', '#ff3300'], road: '#332218', line: '#ffcc00' },
+      { name: 'Ice Peak', sky: ['#021029', '#00ffcc'], ground: '#dbeeff', grass: ['#a6d2ed', '#8cbcdb'], rumble: ['#0088ff', '#fff'], road: '#2c3540', lineColor: '#fff' },
+      { name: 'Cyber Grid', sky: ['#000000', '#006466'], ground: '#020b14', grass: ['#003554', '#051923'], rumble: ['#00ffcc', '#ff00ff'], road: '#0a1118', line: '#00ffcc' }
     ];
+
+    for (let i = 1; i <= 100; i++) {
+      const theme = themes[(i - 1) % themes.length];
+      TRACKS.push({
+        id: `stage_${i}`,
+        name: `Fase ${i}`,
+        icon: i === 1 ? '🏁' : (i % 5 === 0 ? '🏆' : '🪙'),
+        unlocked: i === 1,
+        length: 800 + (i * 40),
+        timeLimit: Math.max(30, 60 - Math.floor(i / 3)),
+        skyGradient: theme.sky,
+        groundColor: theme.ground,
+        grassColors: theme.grass,
+        rumbleColors: theme.rumble,
+        roadColor: theme.road,
+        lineColor: theme.line || '#fff'
+      });
+    }
 
     const CARS = [
       { id: 'redbull', name: 'Red Bull F1', color: '#121f45', accent: '#ff1801', maxSpeed: 380, accel: 0.40, handling: 0.005 },
       { id: 'ferrari', name: 'Scuderia F1', color: '#dc0000', accent: '#fff', maxSpeed: 375, accel: 0.38, handling: 0.005 },
       { id: 'mercedes', name: 'Mercedes F1', color: '#00d2be', accent: '#000', maxSpeed: 370, accel: 0.36, handling: 0.005 },
-      { id: 'mclaren', name: 'McLaren F1', color: '#ff8700', accent: '#000', maxSpeed: 365, accel: 0.35, handling: 0.005 },
-      { id: 'alpine', name: 'Alpine F1', color: '#0090ff', accent: '#ff00ae', maxSpeed: 360, accel: 0.34, handling: 0.005 }
+      { id: 'mclaren', name: 'McLaren F1', color: '#ff8700', accent: '#000', maxSpeed: 365, accel: 0.35, handling: 0.005 }
     ];
 
     class SoundEngine {
@@ -391,8 +411,7 @@
           osc.stop(this.ctx.currentTime + duration);
         } catch(e) {}
       }
-      playCoin() { this.playTone(800, 1400, 0.1, 'sine', 0.12); }
-      playCrash() { this.playTone(90, 20, 0.2, 'square', 0.2); }
+      playCoin() { this.playTone(900, 1500, 0.12, 'sine', 0.15); }
     }
     const audio = new SoundEngine();
 
@@ -408,19 +427,18 @@
 
     let position = 0;
     let speed = 0;
-    let playerX = 0; // Restrito entre -0.80 e 0.80 para não sair da pista
+    let playerX = 0; 
     const segmentLength = 200;
     const cameraDepth = 0.84;
     const roadWidth = 2000;
     const drawDistance = 45;
 
     let segments = [];
-    let carsTraffic = [];
     const keys = { left: false, right: false, accel: false, brake: false, turbo: false };
 
     function loadSavedProgress() {
       try {
-        const saved = localStorage.getItem('super_car_unlocked');
+        const saved = localStorage.getItem('f1_coin_unlocked');
         if (saved) {
           const unlockedIds = JSON.parse(saved);
           TRACKS.forEach(t => { if (unlockedIds.includes(t.id)) t.unlocked = true; });
@@ -430,7 +448,7 @@
     function saveProgress() {
       try {
         const unlockedIds = TRACKS.filter(t => t.unlocked).map(t => t.id);
-        localStorage.setItem('super_car_unlocked', JSON.stringify(unlockedIds));
+        localStorage.setItem('f1_coin_unlocked', JSON.stringify(unlockedIds));
       } catch(e) {}
     }
 
@@ -446,13 +464,17 @@
       const numSegments = trackConfig.length;
       for (let i = 0; i < numSegments; i++) {
         let curve = 0;
-        if (i > 60 && i < 180) curve = 2;
-        if (i > 240 && i < 380) curve = -2.5;
-        if (i > 450 && i < 600) curve = 3;
+        if (i > 40 && i < 120) curve = 1.8;
+        if (i > 180 && i < 280) curve = -2.2;
+        if (i > 350 && i < 480) curve = 2.5;
 
+        // Gerar muitas moedas na pista para colher ao acelerar
         let sprite = null;
-        if (i % 30 === 0) sprite = { type: 'coin', offset: (Math.random() - 0.5) * 1.0 };
-        else if (i % 25 === 0) sprite = { type: 'scenery', offset: Math.random() > 0.5 ? 1.5 : -1.5 };
+        if (i % 10 === 0) {
+          sprite = { type: 'coin', offset: (Math.random() - 0.5) * 1.0 };
+        } else if (i % 25 === 0) {
+          sprite = { type: 'scenery', offset: Math.random() > 0.5 ? 1.5 : -1.5 };
+        }
 
         segments.push({
           index: i,
@@ -461,16 +483,6 @@
           curve: curve,
           color: Math.floor(i / 3) % 2 === 0 ? 'dark' : 'light',
           sprite: sprite
-        });
-      }
-
-      carsTraffic = [];
-      for (let i = 0; i < numSegments / 35; i++) {
-        carsTraffic.push({
-          offset: (Math.random() - 0.5) * 1.1,
-          z: Math.random() * numSegments * segmentLength,
-          speed: 100 + Math.random() * 80,
-          color: ['#00ff66', '#ff00ff', '#ffff00', '#ffffff', '#00e5ff'][Math.floor(Math.random() * 5)]
         });
       }
     }
@@ -518,11 +530,10 @@
       const currentSegment = segments[currentSegmentIndex];
       const speedRatio = speed / maxSpeedAllowed;
 
-      // Movimentação lateral controlada (Esquerda, Centro, Direita dentro da pista)
-      if (keys.left) playerX -= 2.2 * dt;
-      if (keys.right) playerX += 2.2 * dt;
+      if (keys.left) playerX -= 2.5 * dt;
+      if (keys.right) playerX += 2.5 * dt;
 
-      // Trava estrita para o carro de F1 não sair da pista (-0.80 a 0.80)
+      // Trava estrita dentro da pista
       playerX = Math.max(-0.80, Math.min(0.80, playerX));
 
       position += speed * 14 * dt;
@@ -533,23 +544,13 @@
         return;
       }
 
+      // Coleta de moedas ao acelerar por cima
       if (currentSegment.sprite && currentSegment.sprite.type === 'coin') {
-        if (Math.abs(playerX - currentSegment.sprite.offset) < 0.40) {
-          score += 250;
-          nitroAmount = Math.min(100, nitroAmount + 25);
+        if (Math.abs(playerX - currentSegment.sprite.offset) < 0.45) {
+          score += 100;
+          nitroAmount = Math.min(100, nitroAmount + 15);
           audio.playCoin();
-          currentSegment.sprite = null;
-        }
-      }
-
-      for (let i = 0; i < carsTraffic.length; i++) {
-        const npc = carsTraffic[i];
-        npc.z += npc.speed * 10 * dt;
-        if (npc.z > trackTotalLength) npc.z -= trackTotalLength;
-
-        if (Math.abs(position - npc.z) < 120 && Math.abs(playerX - npc.offset) < 0.35) {
-          speed = 40;
-          audio.playCrash();
+          currentSegment.sprite = null; // Moeda colhida some
         }
       }
 
@@ -612,42 +613,23 @@
           drawPoly(seg.p1.screen.x - lw1, seg.p1.screen.y, seg.p1.screen.x + lw1, seg.p1.screen.y, seg.p2.screen.x + lw2, seg.p2.screen.y, seg.p2.screen.x - lw2, seg.p2.screen.y);
         }
 
+        // Renderizar Moedas Brilhantes na Pista
         if (seg.sprite) {
           const sx = seg.p1.screen.x + seg.p1.screen.scale * seg.sprite.offset * roadWidth * w / 2;
           const sy = seg.p1.screen.y;
-          const size = seg.p1.screen.scale * 1000;
+          const size = seg.p1.screen.scale * 1200;
 
           if (seg.sprite.type === 'coin') {
             ctx.fillStyle = '#ffcc00';
             ctx.beginPath();
-            ctx.arc(sx, sy - size * 0.3, Math.max(3, size * 0.18), 0, Math.PI * 2);
+            ctx.arc(sx, sy - size * 0.3, Math.max(4, size * 0.22), 0, Math.PI * 2);
             ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
           } else if (seg.sprite.type === 'scenery') {
             ctx.fillStyle = '#00ffcc';
             ctx.fillRect(sx - size * 0.1, sy - size, size * 0.2, size);
-          }
-        }
-      }
-
-      // Renderizar Carros Inimigos na Pista
-      for (let i = 0; i < carsTraffic.length; i++) {
-        const npc = carsTraffic[i];
-        let relZ = npc.z - position;
-        if (relZ < 0) relZ += trackTotalLength;
-
-        if (relZ > 0 && relZ < drawDistance * segmentLength) {
-          const scale = cameraDepth / relZ;
-          const npcX = w / 2 + (scale * (npc.offset - playerX) * roadWidth * w / 2);
-          const npcY = h / 2 + (scale * camHeight * h / 2);
-          const carW = scale * 75000;
-          const carH = scale * 35000;
-
-          if (carW > 2 && carH > 2) {
-            ctx.fillStyle = npc.color;
-            ctx.fillRect(npcX - carW / 2, npcY - carH, carW, carH);
-            // Asas do carro NPC
-            ctx.fillStyle = '#111';
-            ctx.fillRect(npcX - carW * 0.55, npcY - carH, carW * 1.1, carH * 0.25);
           }
         }
       }
@@ -665,34 +647,27 @@
       ctx.fill();
     }
 
-    // Desenho detalhado de um Carro de Fórmula 1 na visão traseira
     function drawFormula1Car(x, y, color, accent) {
-      // Asa Traseira
       ctx.fillStyle = '#111';
       ctx.fillRect(x - 42, y - 48, 84, 10);
       ctx.fillStyle = accent;
       ctx.fillRect(x - 42, y - 48, 84, 3);
 
-      // Rodas Traseiras
       ctx.fillStyle = '#111';
       ctx.fillRect(x - 52, y - 35, 16, 26);
       ctx.fillRect(x + 36, y - 35, 16, 26);
 
-      // Corpo Principal do F1 (Cockpit / Chassi)
       ctx.fillStyle = color;
       ctx.fillRect(x - 22, y - 40, 44, 45);
 
-      // Capacete do Piloto
       ctx.fillStyle = '#ffcc00';
       ctx.beginPath();
       ctx.arc(x, y - 28, 7, 0, Math.PI * 2);
       ctx.fill();
 
-      // Pontas Laterais e Bico Aerodinâmico
       ctx.fillStyle = accent;
       ctx.fillRect(x - 32, y - 20, 64, 8);
 
-      // Rodas Dianteiras
       ctx.fillStyle = '#111';
       ctx.fillRect(x - 45, y - 15, 12, 22);
       ctx.fillRect(x + 33, y - 15, 12, 22);
@@ -748,7 +723,7 @@
       
       position = 0;
       speed = 0;
-      playerX = 0; // Começa centralizado
+      playerX = 0;
       score = 0;
       nitroAmount = 100;
       timeRemaining = selectedTrack.timeLimit;
@@ -768,19 +743,21 @@
       const resultDesc = document.getElementById('result-desc');
 
       if (isWin) {
-        resultTitle.innerText = "🏆 VITÓRIA NA F1!";
-        resultTitle.style.color = "#00f0ff";
-        resultDesc.innerText = `Pontuação Total: ${score}`;
+        resultTitle.innerText = "🏆 FASE CONCLUÍDA!";
+        resultTitle.style.color = "#ffcc00";
+        resultDesc.innerText = `Moedas Coletadas: ${score}`;
         
+        // Destravar próxima fase
         const currentIndex = TRACKS.findIndex(t => t.id === selectedTrack.id);
         if (currentIndex < TRACKS.length - 1) {
           TRACKS[currentIndex + 1].unlocked = true;
           saveProgress();
+          selectedTrack = TRACKS[currentIndex + 1]; // Avançar automaticamente para a próxima
         }
       } else {
-        resultTitle.innerText = "💥 TEMPO ESGOTADO!";
+        resultTitle.innerText = "⏳ TEMPO ESGOTADO!";
         resultTitle.style.color = "#ff0055";
-        resultDesc.innerText = "Você não conseguiu cruzar a linha de chegada a tempo.";
+        resultDesc.innerText = `Moedas perdidas. Tente novamente!`;
       }
 
       document.getElementById('result-overlay').classList.remove('hidden');
