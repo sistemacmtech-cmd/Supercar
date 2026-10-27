@@ -116,10 +116,15 @@
       padding: 8px;
       cursor: pointer;
       text-align: center;
+      position: relative;
     }
     .track-card.active {
       border-color: #ff0055;
       background: rgba(255, 0, 85, 0.2);
+    }
+    .track-card.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
     .track-icon { font-size: 1.5rem; }
     .track-name { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: #fff; margin-top: 2px; }
@@ -219,7 +224,6 @@
     .speed-val { font-family: 'Orbitron', sans-serif; font-size: 1.7rem; font-weight: 900; color: #fff; line-height: 0.9; }
     .speed-unit { font-size: 0.55rem; color: #ff0055; letter-spacing: 1px; margin-top: 2px; }
 
-    /* Controles Touch Otimizados */
     .touch-controls-left {
       position: absolute;
       bottom: 20px;
@@ -259,6 +263,16 @@
       font-size: 0.9rem;
       font-family: 'Orbitron', sans-serif;
     }
+    
+    /* Result Modal */
+    #result-modal {
+      text-align: center;
+    }
+    #result-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -277,6 +291,14 @@
       <div class="garage-grid" id="garage-grid"></div>
 
       <button id="start-btn" class="btn">INICIAR CORRIDA</button>
+    </div>
+
+    <div id="result-overlay" class="overlay hidden">
+      <div id="result-modal">
+        <h2 id="result-title"></h2>
+        <p id="result-desc" style="font-size: 1.2rem; margin-bottom: 20px;"></p>
+        <button id="result-btn" class="btn">CONTINUAR</button>
+      </div>
     </div>
 
     <div id="hud" style="display: none;">
@@ -330,7 +352,6 @@
       { id: 'bugatti', name: 'Bugatti', color: '#0055ff', maxSpeed: 380, accel: 0.38, handling: 0.0040 }
     ];
 
-    /* Áudio otimizado e leve (sem ruído em background) */
     class SoundEngine {
       constructor() { this.ctx = null; }
       init() {
@@ -377,7 +398,7 @@
     const segmentLength = 200;
     const cameraDepth = 0.84;
     const roadWidth = 2000;
-    const drawDistance = 45; // Otimizado para alta fluidez mobile
+    const drawDistance = 45;
 
     let segments = [];
     let carsTraffic = [];
@@ -435,7 +456,7 @@
           offset: (Math.random() - 0.5) * 1.2,
           z: Math.random() * numSegments * segmentLength,
           speed: 80 + Math.random() * 60,
-          color: ['#00ff66', '#ff00ff', '#ffff00', '#fff'][Math.floor(Math.random() * 4)]
+          color: ['#00ff66', '#ff00ff', '#ffff00', '#ffffff'][Math.floor(Math.random() * 4)]
         });
       }
     }
@@ -543,11 +564,12 @@
       const baseIndex = Math.floor(position / segmentLength) % segments.length;
       let dx = 0;
       const camHeight = 1000;
+      const trackTotalLength = segments.length * segmentLength;
 
       for (let n = 0; n < drawDistance; n++) {
         const seg = segments[(baseIndex + n) % segments.length];
         const looped = seg.index < baseIndex;
-        const cameraZ = (position - (looped ? segments.length * segmentLength : 0)) - (seg.index * segmentLength);
+        const cameraZ = (position - (looped ? trackTotalLength : 0)) - (seg.index * segmentLength);
         const absCameraZ = Math.abs(cameraZ);
 
         project(seg.p1, playerX * roadWidth - dx, camHeight, absCameraZ, w, h);
@@ -594,6 +616,26 @@
         }
       }
 
+      // Desenhando Carros NPC no Tráfego
+      for (let i = 0; i < carsTraffic.length; i++) {
+        const npc = carsTraffic[i];
+        let relZ = npc.z - position;
+        if (relZ < 0) relZ += trackTotalLength;
+
+        if (relZ > 0 && relZ < drawDistance * segmentLength) {
+          const scale = cameraDepth / relZ;
+          const npcX = w / 2 + (scale * (npc.offset - playerX) * roadWidth * w / 2);
+          const npcY = h / 2 + (scale * camHeight * h / 2);
+          const carW = scale * 80000;
+          const carH = scale * 40000;
+
+          if (carW > 2 && carH > 2) {
+            ctx.fillStyle = npc.color;
+            ctx.fillRect(npcX - carW / 2, npcY - carH, carW, carH);
+          }
+        }
+      }
+
       drawPlayerCar(w / 2, h - 70, selectedCar.color);
     }
 
@@ -632,9 +674,10 @@
       tracksGrid.innerHTML = '';
       TRACKS.forEach(track => {
         const card = document.createElement('div');
-        card.className = `track-card ${track.id === selectedTrack.id ? 'active' : ''}`;
-        card.innerHTML = `<div class="track-icon">${track.icon}</div><div class="track-name">${track.name}</div>`;
+        card.className = `track-card ${track.id === selectedTrack.id ? 'active' : ''} ${!track.unlocked ? 'locked' : ''}`;
+        card.innerHTML = `<div class="track-icon">${track.unlocked ? track.icon : '🔒'}</div><div class="track-name">${track.name}</div>`;
         card.onclick = () => {
+          if (!track.unlocked) return;
           selectedTrack = track;
           document.querySelectorAll('.track-card').forEach(c => c.classList.remove('active'));
           card.classList.add('active');
@@ -670,6 +713,7 @@
       isPlaying = true;
 
       document.getElementById('menu-overlay').classList.add('hidden');
+      document.getElementById('result-overlay').classList.add('hidden');
       document.getElementById('hud').style.display = 'flex';
       document.getElementById('hud-track-name').innerText = selectedTrack.name;
     }
@@ -677,19 +721,38 @@
     function gameOver(isWin) {
       isPlaying = false;
       document.getElementById('hud').style.display = 'none';
-      document.getElementById('menu-overlay').classList.remove('hidden');
+
+      const resultTitle = document.getElementById('result-title');
+      const resultDesc = document.getElementById('result-desc');
 
       if (isWin) {
-        alert(`🏆 VITÓRIA! Pontuação: ${score}`);
+        resultTitle.innerText = "🏆 VITÓRIA!";
+        resultTitle.style.color = "#00f0ff";
+        resultDesc.innerText = `Pontuação Total: ${score}`;
+        
+        // Destravar a próxima fase
+        const currentIndex = TRACKS.findIndex(t => t.id === selectedTrack.id);
+        if (currentIndex < TRACKS.length - 1) {
+          TRACKS[currentIndex + 1].unlocked = true;
+          saveProgress();
+        }
       } else {
-        alert('💥 TEMPO ESGOTADO!');
+        resultTitle.innerText = "💥 TEMPO ESGOTADO!";
+        resultTitle.style.color = "#ff0055";
+        resultDesc.innerText = "Você não conseguiu chegar ao fim a tempo.";
       }
-      initUI();
+
+      document.getElementById('result-overlay').classList.remove('hidden');
     }
+
+    document.getElementById('result-btn').onclick = () => {
+      document.getElementById('result-overlay').classList.add('hidden');
+      document.getElementById('menu-overlay').classList.remove('hidden');
+      initUI();
+    };
 
     document.getElementById('start-btn').onclick = startGame;
 
-    // Controles Touch Otimizados para Celular
     const bindControl = (id, key) => {
       const btn = document.getElementById(id);
       const press = (e) => { e.preventDefault(); keys[key] = true; btn.classList.add('pressed'); };
