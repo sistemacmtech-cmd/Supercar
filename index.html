@@ -208,60 +208,70 @@
 
     .speedometer {
       position: absolute;
-      bottom: 25px;
+      top: 65px;
       right: 15px;
       background: rgba(5, 5, 12, 0.85);
       border: 2px solid #ff0055;
       border-radius: 50%;
-      width: 90px;
-      height: 90px;
+      width: 80px;
+      height: 80px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
     }
-    .speed-val { font-family: 'Orbitron', sans-serif; font-size: 1.7rem; font-weight: 900; color: #fff; line-height: 0.9; }
-    .speed-unit { font-size: 0.55rem; color: #ff0055; letter-spacing: 1px; margin-top: 2px; }
+    .speed-val { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 0.9; }
+    .speed-unit { font-size: 0.5rem; color: #ff0055; letter-spacing: 1px; margin-top: 2px; }
 
+    /* CONTROLES TOUCH REPOSICIONADOS E MAIORES */
     .touch-controls-left {
       position: absolute;
-      bottom: 20px;
-      left: 15px;
+      bottom: 25px;
+      left: 20px;
       display: flex;
-      gap: 12px;
+      gap: 15px;
       pointer-events: auto;
     }
     .touch-controls-right {
       position: absolute;
-      bottom: 20px;
-      right: 120px;
+      bottom: 25px;
+      right: 20px;
       display: flex;
-      gap: 10px;
+      gap: 12px;
       pointer-events: auto;
+      align-items: flex-end;
     }
     .touch-btn {
-      width: 62px;
-      height: 62px;
+      width: 75px;
+      height: 75px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.12);
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.18);
+      border: 3px solid rgba(255, 255, 255, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       color: white;
       touch-action: manipulation;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
     .touch-btn:active, .touch-btn.pressed {
-      background: rgba(0, 240, 255, 0.4);
+      background: rgba(0, 240, 255, 0.5);
       border-color: #00f0ff;
+      transform: scale(0.95);
     }
     .btn-turbo {
-      background: rgba(255, 0, 85, 0.3);
+      width: 65px;
+      height: 65px;
+      background: rgba(255, 0, 85, 0.4);
       border-color: #ff0055;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-family: 'Orbitron', sans-serif;
+    }
+    .pedals-group {
+      display: flex;
+      gap: 12px;
     }
     
     #result-modal {
@@ -322,14 +332,19 @@
         <div class="speed-unit">KM/H</div>
       </div>
 
+      <!-- CONTROLES DIRECIONAIS (ESQUERDA) -->
       <div class="touch-controls-left">
         <div class="touch-btn" id="btn-left">◀</div>
         <div class="touch-btn" id="btn-right">▶</div>
       </div>
+
+      <!-- ACELERADOR, FREIO E TURBO (DIREITA) -->
       <div class="touch-controls-right">
         <div class="touch-btn btn-turbo" id="btn-turbo">⚡</div>
-        <div class="touch-btn" id="btn-accel" style="background: rgba(0,255,100,0.2);">▲</div>
-        <div class="touch-btn" id="btn-brake" style="background: rgba(255,0,50,0.2);">▼</div>
+        <div class="pedals-group">
+          <div class="touch-btn" id="btn-brake" style="background: rgba(255,0,50,0.3); border-color: #ff3333;">▼</div>
+          <div class="touch-btn" id="btn-accel" style="background: rgba(0,255,100,0.3); border-color: #00ff66;">▲</div>
+        </div>
       </div>
     </div>
   </div>
@@ -420,7 +435,6 @@
     }
 
     function resizeCanvas() {
-      // Usando resolução fixa interna alta para garantir nitidez e proporção correta no canvas
       canvas.width = window.innerWidth > 0 ? window.innerWidth : 800;
       canvas.height = window.innerHeight > 0 ? window.innerHeight : 600;
     }
@@ -703,7 +717,7 @@
 
     function startGame() {
       audio.init();
-      resizeCanvas(); // Garante que o tamanho do canvas ajusta perfeitamente na hora de começar
+      resizeCanvas();
       buildTrack(selectedTrack);
       
       position = 0;
