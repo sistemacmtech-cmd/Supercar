@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SUPER CAR - Mobile Optimized</title>
+  <title>SUPER FORMULA 1 - Mobile Arcade</title>
   
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -224,7 +224,7 @@
     .speed-val { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 0.9; }
     .speed-unit { font-size: 0.5rem; color: #ff0055; letter-spacing: 1px; margin-top: 2px; }
 
-    /* CONTROLES TOUCH REPOSICIONADOS E MAIORES */
+    /* CONTROLES TOUCH AMPLIADOS */
     .touch-controls-left {
       position: absolute;
       bottom: 25px;
@@ -290,13 +290,13 @@
     <canvas id="canvas"></canvas>
 
     <div id="menu-overlay" class="overlay">
-      <h1 class="title">SUPER CAR</h1>
-      <div class="subtitle">Mobile Arcade Edition</div>
+      <h1 class="title">SUPER F1</h1>
+      <div class="subtitle">Formula 1 Mobile Edition</div>
 
       <div class="section-title">Fase / Pista</div>
       <div class="tracks-grid" id="tracks-grid"></div>
 
-      <div class="section-title">Garagem</div>
+      <div class="section-title">Equipe / Cor do F1</div>
       <div class="garage-grid" id="garage-grid"></div>
 
       <button id="start-btn" class="btn">INICIAR CORRIDA</button>
@@ -332,13 +332,13 @@
         <div class="speed-unit">KM/H</div>
       </div>
 
-      <!-- CONTROLES DIRECIONAIS (ESQUERDA) -->
+      <!-- CONTROLES DE DIREÇÃO -->
       <div class="touch-controls-left">
         <div class="touch-btn" id="btn-left">◀</div>
         <div class="touch-btn" id="btn-right">▶</div>
       </div>
 
-      <!-- ACELERADOR, FREIO E TURBO (DIREITA) -->
+      <!-- ACELERADOR, FREIO E TURBO -->
       <div class="touch-controls-right">
         <div class="touch-btn btn-turbo" id="btn-turbo">⚡</div>
         <div class="pedals-group">
@@ -359,11 +359,11 @@
     ];
 
     const CARS = [
-      { id: 'ferrari', name: 'Ferrari F8', color: '#ff0000', maxSpeed: 360, accel: 0.35, handling: 0.0038 },
-      { id: 'lambo', name: 'Lambo', color: '#ffe600', maxSpeed: 350, accel: 0.32, handling: 0.0036 },
-      { id: 'porsche', name: 'Porsche', color: '#00f0ff', maxSpeed: 330, accel: 0.28, handling: 0.0034 },
-      { id: 'mclaren', name: 'McLaren', color: '#ff5500', maxSpeed: 340, accel: 0.30, handling: 0.0035 },
-      { id: 'bugatti', name: 'Bugatti', color: '#0055ff', maxSpeed: 380, accel: 0.38, handling: 0.0040 }
+      { id: 'redbull', name: 'Red Bull F1', color: '#121f45', accent: '#ff1801', maxSpeed: 380, accel: 0.40, handling: 0.005 },
+      { id: 'ferrari', name: 'Scuderia F1', color: '#dc0000', accent: '#fff', maxSpeed: 375, accel: 0.38, handling: 0.005 },
+      { id: 'mercedes', name: 'Mercedes F1', color: '#00d2be', accent: '#000', maxSpeed: 370, accel: 0.36, handling: 0.005 },
+      { id: 'mclaren', name: 'McLaren F1', color: '#ff8700', accent: '#000', maxSpeed: 365, accel: 0.35, handling: 0.005 },
+      { id: 'alpine', name: 'Alpine F1', color: '#0090ff', accent: '#ff00ae', maxSpeed: 360, accel: 0.34, handling: 0.005 }
     ];
 
     class SoundEngine {
@@ -408,7 +408,7 @@
 
     let position = 0;
     let speed = 0;
-    let playerX = 0;
+    let playerX = 0; // Restrito entre -0.80 e 0.80 para não sair da pista
     const segmentLength = 200;
     const cameraDepth = 0.84;
     const roadWidth = 2000;
@@ -451,7 +451,7 @@
         if (i > 450 && i < 600) curve = 3;
 
         let sprite = null;
-        if (i % 30 === 0) sprite = { type: 'coin', offset: (Math.random() - 0.5) * 1.2 };
+        if (i % 30 === 0) sprite = { type: 'coin', offset: (Math.random() - 0.5) * 1.0 };
         else if (i % 25 === 0) sprite = { type: 'scenery', offset: Math.random() > 0.5 ? 1.5 : -1.5 };
 
         segments.push({
@@ -465,12 +465,12 @@
       }
 
       carsTraffic = [];
-      for (let i = 0; i < numSegments / 40; i++) {
+      for (let i = 0; i < numSegments / 35; i++) {
         carsTraffic.push({
-          offset: (Math.random() - 0.5) * 1.2,
+          offset: (Math.random() - 0.5) * 1.1,
           z: Math.random() * numSegments * segmentLength,
-          speed: 80 + Math.random() * 60,
-          color: ['#00ff66', '#ff00ff', '#ffff00', '#ffffff'][Math.floor(Math.random() * 4)]
+          speed: 100 + Math.random() * 80,
+          color: ['#00ff66', '#ff00ff', '#ffff00', '#ffffff', '#00e5ff'][Math.floor(Math.random() * 5)]
         });
       }
     }
@@ -501,15 +501,15 @@
       let accelMultiplier = 1;
 
       if (keys.turbo && nitroAmount > 0) {
-        maxSpeedAllowed += 70;
-        accelMultiplier = 1.8;
+        maxSpeedAllowed += 80;
+        accelMultiplier = 1.9;
         nitroAmount = Math.max(0, nitroAmount - 35 * dt);
       } else {
         nitroAmount = Math.min(100, nitroAmount + 4 * dt);
       }
 
-      if (keys.accel) speed += selectedCar.accel * 380 * accelMultiplier;
-      else if (keys.brake) speed -= selectedCar.accel * 500;
+      if (keys.accel) speed += selectedCar.accel * 400 * accelMultiplier;
+      else if (keys.brake) speed -= selectedCar.accel * 550;
       else speed -= 35;
 
       speed = Math.max(0, Math.min(speed, maxSpeedAllowed));
@@ -518,13 +518,12 @@
       const currentSegment = segments[currentSegmentIndex];
       const speedRatio = speed / maxSpeedAllowed;
 
-      if (keys.left) playerX -= selectedCar.handling * speedRatio * 1300;
-      if (keys.right) playerX += selectedCar.handling * speedRatio * 1300;
+      // Movimentação lateral controlada (Esquerda, Centro, Direita dentro da pista)
+      if (keys.left) playerX -= 2.2 * dt;
+      if (keys.right) playerX += 2.2 * dt;
 
-      playerX -= (currentSegment.curve * 0.0002 * speedRatio);
-      playerX = Math.max(-1.6, Math.min(1.6, playerX));
-
-      if (Math.abs(playerX) > 1.0 && speed > 70) speed -= 140 * dt;
+      // Trava estrita para o carro de F1 não sair da pista (-0.80 a 0.80)
+      playerX = Math.max(-0.80, Math.min(0.80, playerX));
 
       position += speed * 14 * dt;
       const trackTotalLength = segments.length * segmentLength;
@@ -535,7 +534,7 @@
       }
 
       if (currentSegment.sprite && currentSegment.sprite.type === 'coin') {
-        if (Math.abs(playerX - currentSegment.sprite.offset) < 0.45) {
+        if (Math.abs(playerX - currentSegment.sprite.offset) < 0.40) {
           score += 250;
           nitroAmount = Math.min(100, nitroAmount + 25);
           audio.playCoin();
@@ -548,8 +547,8 @@
         npc.z += npc.speed * 10 * dt;
         if (npc.z > trackTotalLength) npc.z -= trackTotalLength;
 
-        if (Math.abs(position - npc.z) < 100 && Math.abs(playerX - npc.offset) < 0.35) {
-          speed = 30;
+        if (Math.abs(position - npc.z) < 120 && Math.abs(playerX - npc.offset) < 0.35) {
+          speed = 40;
           audio.playCrash();
         }
       }
@@ -630,6 +629,7 @@
         }
       }
 
+      // Renderizar Carros Inimigos na Pista
       for (let i = 0; i < carsTraffic.length; i++) {
         const npc = carsTraffic[i];
         let relZ = npc.z - position;
@@ -639,17 +639,20 @@
           const scale = cameraDepth / relZ;
           const npcX = w / 2 + (scale * (npc.offset - playerX) * roadWidth * w / 2);
           const npcY = h / 2 + (scale * camHeight * h / 2);
-          const carW = scale * 80000;
-          const carH = scale * 40000;
+          const carW = scale * 75000;
+          const carH = scale * 35000;
 
           if (carW > 2 && carH > 2) {
             ctx.fillStyle = npc.color;
             ctx.fillRect(npcX - carW / 2, npcY - carH, carW, carH);
+            // Asas do carro NPC
+            ctx.fillStyle = '#111';
+            ctx.fillRect(npcX - carW * 0.55, npcY - carH, carW * 1.1, carH * 0.25);
           }
         }
       }
 
-      drawPlayerCar(w / 2, h - 70, selectedCar.color);
+      drawFormula1Car(w / 2, h - 75, selectedCar.color, selectedCar.accent);
     }
 
     function drawPoly(x1, y1, x2, y2, x3, y3, x4, y4) {
@@ -662,14 +665,37 @@
       ctx.fill();
     }
 
-    function drawPlayerCar(x, y, color) {
-      ctx.fillStyle = color;
-      ctx.fillRect(x - 45, y - 28, 90, 28);
+    // Desenho detalhado de um Carro de Fórmula 1 na visão traseira
+    function drawFormula1Car(x, y, color, accent) {
+      // Asa Traseira
       ctx.fillStyle = '#111';
-      ctx.fillRect(x - 30, y - 44, 60, 20);
-      ctx.fillStyle = '#ff0000';
-      ctx.fillRect(x - 38, y - 24, 16, 5);
-      ctx.fillRect(x + 22, y - 24, 16, 5);
+      ctx.fillRect(x - 42, y - 48, 84, 10);
+      ctx.fillStyle = accent;
+      ctx.fillRect(x - 42, y - 48, 84, 3);
+
+      // Rodas Traseiras
+      ctx.fillStyle = '#111';
+      ctx.fillRect(x - 52, y - 35, 16, 26);
+      ctx.fillRect(x + 36, y - 35, 16, 26);
+
+      // Corpo Principal do F1 (Cockpit / Chassi)
+      ctx.fillStyle = color;
+      ctx.fillRect(x - 22, y - 40, 44, 45);
+
+      // Capacete do Piloto
+      ctx.fillStyle = '#ffcc00';
+      ctx.beginPath();
+      ctx.arc(x, y - 28, 7, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Pontas Laterais e Bico Aerodinâmico
+      ctx.fillStyle = accent;
+      ctx.fillRect(x - 32, y - 20, 64, 8);
+
+      // Rodas Dianteiras
+      ctx.fillStyle = '#111';
+      ctx.fillRect(x - 45, y - 15, 12, 22);
+      ctx.fillRect(x + 33, y - 15, 12, 22);
     }
 
     function gameLoop(now) {
@@ -722,7 +748,7 @@
       
       position = 0;
       speed = 0;
-      playerX = 0;
+      playerX = 0; // Começa centralizado
       score = 0;
       nitroAmount = 100;
       timeRemaining = selectedTrack.timeLimit;
@@ -742,7 +768,7 @@
       const resultDesc = document.getElementById('result-desc');
 
       if (isWin) {
-        resultTitle.innerText = "🏆 VITÓRIA!";
+        resultTitle.innerText = "🏆 VITÓRIA NA F1!";
         resultTitle.style.color = "#00f0ff";
         resultDesc.innerText = `Pontuação Total: ${score}`;
         
@@ -754,7 +780,7 @@
       } else {
         resultTitle.innerText = "💥 TEMPO ESGOTADO!";
         resultTitle.style.color = "#ff0055";
-        resultDesc.innerText = "Você não conseguiu chegar ao fim a tempo.";
+        resultDesc.innerText = "Você não conseguiu cruzar a linha de chegada a tempo.";
       }
 
       document.getElementById('result-overlay').classList.remove('hidden');
