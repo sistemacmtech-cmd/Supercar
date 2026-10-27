@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SUPER F1 - 100 Fases & Moedas</title>
+  <title>SUPER F1 - 100 Fases & Áudio</title>
   
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,7 +68,7 @@
     }
     .title {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       font-weight: 900;
       font-style: italic;
       text-transform: uppercase;
@@ -79,7 +79,7 @@
       margin-bottom: 2px;
     }
     .subtitle {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #00f0ff;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -101,7 +101,7 @@
       gap: 6px;
       width: 100%;
       max-width: 850px;
-      max-height: 220px;
+      max-height: 200px;
       overflow-y: auto;
       margin-bottom: 12px;
       padding: 5px;
@@ -190,6 +190,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      gap: 8px;
     }
     .hud-box {
       background: rgba(5, 5, 12, 0.8);
@@ -197,15 +198,38 @@
       padding: 6px 12px;
       border-radius: 6px;
     }
+    .hud-top-buttons {
+      display: flex;
+      gap: 8px;
+      pointer-events: auto;
+    }
+    .hud-action-btn {
+      background: rgba(5, 5, 12, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.5);
+      border-radius: 6px;
+      padding: 6px 12px;
+      color: #00f0ff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .hud-action-btn:active {
+      background: rgba(0, 240, 255, 0.3);
+    }
+    
     .hud-label { font-size: 0.65rem; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase; }
     .hud-value { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 900; color: #fff; }
 
     .nitro-container {
-      width: 120px;
-      height: 10px;
+      width: 100px;
+      height: 8px;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid #00f0ff;
-      border-radius: 5px;
+      border-radius: 4px;
       overflow: hidden;
       margin-top: 3px;
     }
@@ -213,25 +237,26 @@
 
     .speedometer {
       position: absolute;
-      top: 65px;
+      top: 75px;
       right: 15px;
       background: rgba(5, 5, 12, 0.85);
       border: 2px solid #ffcc00;
       border-radius: 50%;
-      width: 80px;
-      height: 80px;
+      width: 75px;
+      height: 75px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
     }
-    .speed-val { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 0.9; }
+    .speed-val { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 900; color: #fff; line-height: 0.9; }
     .speed-unit { font-size: 0.5rem; color: #ffcc00; letter-spacing: 1px; margin-top: 2px; }
 
+    /* CONTROLES ELEVADOS PARA MELHOR ERGONOMIA */
     .touch-controls-left {
       position: absolute;
-      bottom: 25px;
+      bottom: 95px;
       left: 20px;
       display: flex;
       gap: 15px;
@@ -239,7 +264,7 @@
     }
     .touch-controls-right {
       position: absolute;
-      bottom: 25px;
+      bottom: 95px;
       right: 20px;
       display: flex;
       gap: 12px;
@@ -247,8 +272,8 @@
       align-items: flex-end;
     }
     .touch-btn {
-      width: 75px;
-      height: 75px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.18);
       border: 3px solid rgba(255, 255, 255, 0.5);
@@ -266,8 +291,8 @@
       transform: scale(0.95);
     }
     .btn-turbo {
-      width: 65px;
-      height: 65px;
+      width: 62px;
+      height: 62px;
       background: rgba(255, 0, 85, 0.4);
       border-color: #ff0055;
       font-size: 1rem;
@@ -278,14 +303,8 @@
       gap: 12px;
     }
     
-    #result-modal {
-      text-align: center;
-    }
-    #result-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
+    #result-modal { text-align: center; }
+    #result-title { font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -294,13 +313,13 @@
     <canvas id="canvas"></canvas>
 
     <div id="menu-overlay" class="overlay">
-      <h1 class="title">F1 COIN RUSH</h1>
-      <div class="subtitle">100 Fases - Colete Moedas</div>
+      <h1 class="title">SUPER F1 GRAND PRIX</h1>
+      <div class="subtitle">100 Fases • Tráfego F1 Real • Áudio Completo</div>
 
       <div class="section-title">Selecionar Fase (1 a 100)</div>
       <div class="tracks-grid" id="tracks-grid"></div>
 
-      <div class="section-title">Equipe F1</div>
+      <div class="section-title">Equipes de F1</div>
       <div class="garage-grid" id="garage-grid"></div>
 
       <button id="start-btn" class="btn">INICIAR CORRIDA</button>
@@ -320,14 +339,17 @@
           <div class="hud-label">Tempo</div>
           <div class="hud-value" id="hud-time">60.0</div>
         </div>
+
         <div class="hud-box" style="text-align: center;">
           <div class="hud-label" id="hud-track-name">FASE 1</div>
           <div class="hud-value" id="hud-progress" style="color: #00f0ff; font-size: 1rem;">0%</div>
           <div class="nitro-container"><div class="nitro-bar" id="nitro-bar"></div></div>
         </div>
-        <div class="hud-box" style="text-align: right;">
-          <div class="hud-label">Moedas / Pontos</div>
-          <div class="hud-value" id="hud-score" style="color: #ffcc00;">0</div>
+
+        <!-- BOTÕES SUPERIORES: MÚSICA E CÂMERA -->
+        <div class="hud-top-buttons">
+          <button class="hud-action-btn" id="btn-audio-top">🎵 MÚSICA</button>
+          <button class="hud-action-btn" id="btn-cam-top">📹 CÂMERA</button>
         </div>
       </div>
 
@@ -336,6 +358,7 @@
         <div class="speed-unit">KM/H</div>
       </div>
 
+      <!-- CONTROLES TOUCH MAIS ALTOS PARA MELHOR JOGABILIDADE -->
       <div class="touch-controls-left">
         <div class="touch-btn" id="btn-left">◀</div>
         <div class="touch-btn" id="btn-right">▶</div>
@@ -352,67 +375,123 @@
   </div>
 
   <script>
-    // Geração automática de 100 Fases
+    // 100 Fases Geradas
     const TRACKS = [];
     const themes = [
-      { name: 'Neon City', sky: ['#0d0221', '#ff0055'], ground: '#0a0a16', grass: ['#120826', '#1a0b36'], rumble: ['#ff0055', '#00f0ff'], road: '#181828', line: '#fff' },
-      { name: 'Desert Sun', sky: ['#2b0400', '#ff7700'], ground: '#4a1500', grass: ['#cc5200', '#b34700'], rumble: ['#fff', '#ff3300'], road: '#332218', line: '#ffcc00' },
-      { name: 'Ice Peak', sky: ['#021029', '#00ffcc'], ground: '#dbeeff', grass: ['#a6d2ed', '#8cbcdb'], rumble: ['#0088ff', '#fff'], road: '#2c3540', lineColor: '#fff' },
-      { name: 'Cyber Grid', sky: ['#000000', '#006466'], ground: '#020b14', grass: ['#003554', '#051923'], rumble: ['#00ffcc', '#ff00ff'], road: '#0a1118', line: '#00ffcc' }
+      { name: 'Monaco GP', sky: ['#0d0221', '#00f0ff'], ground: '#0a0a16', grass: ['#120826', '#1a0b36'], rumble: ['#ff0055', '#00f0ff'], road: '#181828' },
+      { name: 'Monza Speed', sky: ['#2b0400', '#ff7700'], ground: '#4a1500', grass: ['#0f380f', '#072007'], rumble: ['#fff', '#ff3300'], road: '#222222' },
+      { name: 'Spa Francorchamps', sky: ['#021029', '#00ffcc'], ground: '#102010', grass: ['#1a4a1a', '#0f300f'], rumble: ['#ffcc00', '#fff'], road: '#2c3540' },
+      { name: 'Silverstone Grid', sky: ['#0a0a1a', '#aa00ff'], ground: '#020b14', grass: ['#003554', '#051923'], rumble: ['#00ffcc', '#ff00ff'], road: '#11111d' }
     ];
 
     for (let i = 1; i <= 100; i++) {
       const theme = themes[(i - 1) % themes.length];
       TRACKS.push({
         id: `stage_${i}`,
-        name: `Fase ${i}`,
-        icon: i === 1 ? '🏁' : (i % 5 === 0 ? '🏆' : '🪙'),
+        name: `Fase ${i} - ${theme.name}`,
+        icon: i === 1 ? '🏁' : (i % 5 === 0 ? '🏆' : '🏎️'),
         unlocked: i === 1,
-        length: 800 + (i * 40),
-        timeLimit: Math.max(30, 60 - Math.floor(i / 3)),
+        length: 800 + (i * 45),
+        timeLimit: Math.max(35, 65 - Math.floor(i / 3)),
         skyGradient: theme.sky,
         groundColor: theme.ground,
         grassColors: theme.grass,
         rumbleColors: theme.rumble,
-        roadColor: theme.road,
-        lineColor: theme.line || '#fff'
+        roadColor: theme.road
       });
     }
 
     const CARS = [
-      { id: 'redbull', name: 'Red Bull F1', color: '#121f45', accent: '#ff1801', maxSpeed: 380, accel: 0.40, handling: 0.005 },
-      { id: 'ferrari', name: 'Scuderia F1', color: '#dc0000', accent: '#fff', maxSpeed: 375, accel: 0.38, handling: 0.005 },
-      { id: 'mercedes', name: 'Mercedes F1', color: '#00d2be', accent: '#000', maxSpeed: 370, accel: 0.36, handling: 0.005 },
-      { id: 'mclaren', name: 'McLaren F1', color: '#ff8700', accent: '#000', maxSpeed: 365, accel: 0.35, handling: 0.005 }
+      { id: 'redbull', name: 'Red Bull F1', color: '#061339', accent: '#f50000', maxSpeed: 385, accel: 0.42 },
+      { id: 'ferrari', name: 'Scuderia Ferrari', color: '#e80000', accent: '#ffe600', maxSpeed: 382, accel: 0.40 },
+      { id: 'mercedes', name: 'Mercedes AMG', color: '#00a39e', accent: '#000000', maxSpeed: 380, accel: 0.39 },
+      { id: 'mclaren', name: 'McLaren F1', color: '#ff8000', accent: '#111111', maxSpeed: 378, accel: 0.38 },
+      { id: 'aston', name: 'Aston Martin F1', color: '#00594f', accent: '#cedc00', maxSpeed: 376, accel: 0.37 },
+      { id: 'alpine', name: 'Alpine F1', color: '#0055a5', accent: '#ff82b2', maxSpeed: 374, accel: 0.36 }
     ];
 
+    // SINTETIZADOR DE ÁUDIO REALISTA PARA MOTOR E MÚSICA SYNTHWAVE
     class SoundEngine {
-      constructor() { this.ctx = null; }
+      constructor() {
+        this.ctx = null;
+        this.engineOsc = null;
+        this.engineGain = null;
+        this.musicPlaying = true;
+        this.musicTimer = null;
+        this.step = 0;
+      }
       init() {
-        if (this.ctx) { if (this.ctx.state === 'suspended') this.ctx.resume(); return; }
+        if (this.ctx) {
+          if (this.ctx.state === 'suspended') this.ctx.resume();
+          return;
+        }
         try {
           const AudioCtx = window.AudioContext || window.webkitAudioContext;
           this.ctx = new AudioCtx();
-        } catch (e) {}
+          
+          // Sintetizador do motor
+          this.engineOsc = this.ctx.createOscillator();
+          this.engineGain = this.ctx.createGain();
+          this.engineOsc.type = 'sawtooth';
+          this.engineOsc.frequency.setValueAtTime(60, this.ctx.currentTime);
+          this.engineGain.gain.setValueAtTime(0.01, this.ctx.currentTime);
+          
+          this.engineOsc.connect(this.engineGain);
+          this.engineGain.connect(this.ctx.destination);
+          this.engineOsc.start();
+
+          this.startMusicSequence();
+        } catch(e) {}
       }
-      playTone(freqStart, freqEnd, duration, type='sine', vol=0.1) {
+      updateEngine(speed, maxSpeed, isAccel) {
+        if (!this.ctx || !this.engineOsc) return;
+        const ratio = speed / maxSpeed;
+        const baseFreq = 60 + (ratio * 260) + (isAccel ? (Math.random() * 10) : 0);
+        this.engineOsc.frequency.setTargetAtTime(baseFreq, this.ctx.currentTime, 0.05);
+        this.engineGain.gain.setTargetAtTime(speed > 5 ? 0.12 : 0.02, this.ctx.currentTime, 0.05);
+      }
+      playCrash() {
         if (!this.ctx) return;
         try {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
-          osc.type = type;
-          osc.frequency.setValueAtTime(freqStart, this.ctx.currentTime);
-          if(freqEnd) osc.frequency.exponentialRampToValueAtTime(freqEnd, this.ctx.currentTime + duration);
-          gain.gain.setValueAtTime(vol, this.ctx.currentTime);
-          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + duration);
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(120, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 0.3);
+          gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(this.ctx.currentTime + duration);
+          osc.stop(this.ctx.currentTime + 0.3);
         } catch(e) {}
       }
-      playCoin() { this.playTone(900, 1500, 0.12, 'sine', 0.15); }
+      toggleMusic() {
+        this.musicPlaying = !this.musicPlaying;
+        return this.musicPlaying;
+      }
+      startMusicSequence() {
+        const notes = [110, 110, 146, 110, 164, 110, 146, 130];
+        setInterval(() => {
+          if (!this.musicPlaying || !this.ctx) return;
+          try {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'triangle';
+            const freq = notes[this.step % notes.length];
+            osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+            gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start();
+            osc.stop(this.ctx.currentTime + 0.15);
+            this.step++;
+          } catch(e) {}
+        }, 160);
+      }
     }
+
     const audio = new SoundEngine();
 
     const canvas = document.getElementById('canvas');
@@ -421,24 +500,24 @@
     let selectedTrack = TRACKS[0];
     let selectedCar = CARS[0];
     let isPlaying = false;
-    let score = 0;
     let timeRemaining = 0;
     let nitroAmount = 100;
+    let cameraMode = 0; // 0: Traseira, 1: Cockpit, 2: Alta
 
     let position = 0;
     let speed = 0;
     let playerX = 0; 
     const segmentLength = 200;
-    const cameraDepth = 0.84;
     const roadWidth = 2000;
-    const drawDistance = 45;
+    const drawDistance = 50;
 
     let segments = [];
+    let traffic = [];
     const keys = { left: false, right: false, accel: false, brake: false, turbo: false };
 
     function loadSavedProgress() {
       try {
-        const saved = localStorage.getItem('f1_coin_unlocked');
+        const saved = localStorage.getItem('f1_unlocked_stage');
         if (saved) {
           const unlockedIds = JSON.parse(saved);
           TRACKS.forEach(t => { if (unlockedIds.includes(t.id)) t.unlocked = true; });
@@ -448,50 +527,54 @@
     function saveProgress() {
       try {
         const unlockedIds = TRACKS.filter(t => t.unlocked).map(t => t.id);
-        localStorage.setItem('f1_coin_unlocked', JSON.stringify(unlockedIds));
+        localStorage.setItem('f1_unlocked_stage', JSON.stringify(unlockedIds));
       } catch(e) {}
     }
 
     function resizeCanvas() {
-      canvas.width = window.innerWidth > 0 ? window.innerWidth : 800;
-      canvas.height = window.innerHeight > 0 ? window.innerHeight : 600;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
     function buildTrack(trackConfig) {
       segments = [];
+      traffic = [];
       const numSegments = trackConfig.length;
+
       for (let i = 0; i < numSegments; i++) {
         let curve = 0;
-        if (i > 40 && i < 120) curve = 1.8;
-        if (i > 180 && i < 280) curve = -2.2;
-        if (i > 350 && i < 480) curve = 2.5;
-
-        // Gerar muitas moedas na pista para colher ao acelerar
-        let sprite = null;
-        if (i % 10 === 0) {
-          sprite = { type: 'coin', offset: (Math.random() - 0.5) * 1.0 };
-        } else if (i % 25 === 0) {
-          sprite = { type: 'scenery', offset: Math.random() > 0.5 ? 1.5 : -1.5 };
-        }
+        if (i > 30 && i < 110) curve = 2.0;
+        if (i > 160 && i < 260) curve = -2.5;
+        if (i > 320 && i < 450) curve = 3.0;
 
         segments.push({
           index: i,
           p1: { camera: {}, screen: {} },
           p2: { camera: {}, screen: {} },
           curve: curve,
-          color: Math.floor(i / 3) % 2 === 0 ? 'dark' : 'light',
-          sprite: sprite
+          color: Math.floor(i / 3) % 2 === 0 ? 'dark' : 'light'
         });
+
+        // Gerar tráfego real de F1 na pista
+        if (i > 50 && i % 18 === 0) {
+          traffic.push({
+            segmentIndex: i,
+            offset: (Math.random() - 0.5) * 1.3,
+            speed: 120 + Math.random() * 120,
+            car: CARS[Math.floor(Math.random() * CARS.length)]
+          });
+        }
       }
     }
 
     function project(p, cameraX, cameraY, cameraZ, width, height) {
+      const depth = cameraMode === 2 ? 0.6 : 0.84;
       p.camera.x = -cameraX;
       p.camera.y = -cameraY;
       p.camera.z = cameraZ;
-      p.screen.scale = cameraDepth / Math.max(1, cameraZ);
+      p.screen.scale = depth / Math.max(1, cameraZ);
       p.screen.x = Math.round((width / 2) + (p.screen.scale * p.camera.x * width / 2));
       p.screen.y = Math.round((height / 2) - (p.screen.scale * p.camera.y * height / 2));
       p.screen.w = Math.round(p.screen.scale * roadWidth * width / 2);
@@ -513,28 +596,23 @@
       let accelMultiplier = 1;
 
       if (keys.turbo && nitroAmount > 0) {
-        maxSpeedAllowed += 80;
-        accelMultiplier = 1.9;
-        nitroAmount = Math.max(0, nitroAmount - 35 * dt);
+        maxSpeedAllowed += 70;
+        accelMultiplier = 1.8;
+        nitroAmount = Math.max(0, nitroAmount - 30 * dt);
       } else {
-        nitroAmount = Math.min(100, nitroAmount + 4 * dt);
+        nitroAmount = Math.min(100, nitroAmount + 5 * dt);
       }
 
-      if (keys.accel) speed += selectedCar.accel * 400 * accelMultiplier;
-      else if (keys.brake) speed -= selectedCar.accel * 550;
-      else speed -= 35;
+      if (keys.accel) speed += selectedCar.accel * 380 * accelMultiplier;
+      else if (keys.brake) speed -= selectedCar.accel * 500;
+      else speed -= 40;
 
       speed = Math.max(0, Math.min(speed, maxSpeedAllowed));
+      audio.updateEngine(speed, maxSpeedAllowed, keys.accel);
 
-      const currentSegmentIndex = Math.floor(position / segmentLength) % segments.length;
-      const currentSegment = segments[currentSegmentIndex];
-      const speedRatio = speed / maxSpeedAllowed;
-
-      if (keys.left) playerX -= 2.5 * dt;
-      if (keys.right) playerX += 2.5 * dt;
-
-      // Trava estrita dentro da pista
-      playerX = Math.max(-0.80, Math.min(0.80, playerX));
+      if (keys.left) playerX -= 2.2 * dt;
+      if (keys.right) playerX += 2.2 * dt;
+      playerX = Math.max(-0.85, Math.min(0.85, playerX));
 
       position += speed * 14 * dt;
       const trackTotalLength = segments.length * segmentLength;
@@ -544,19 +622,18 @@
         return;
       }
 
-      // Coleta de moedas ao acelerar por cima
-      if (currentSegment.sprite && currentSegment.sprite.type === 'coin') {
-        if (Math.abs(playerX - currentSegment.sprite.offset) < 0.45) {
-          score += 100;
-          nitroAmount = Math.min(100, nitroAmount + 15);
-          audio.playCoin();
-          currentSegment.sprite = null; // Moeda colhida some
+      // Atualizar e Verificar Colisões com Tráfego F1
+      const currentSeg = Math.floor(position / segmentLength) % segments.length;
+      traffic.forEach(t => {
+        t.segmentIndex = (t.segmentIndex + (t.speed * dt * 0.05)) % segments.length;
+        if (Math.abs(t.segmentIndex - currentSeg) < 1.2 && Math.abs(playerX - t.offset) < 0.35) {
+          speed = Math.max(40, speed * 0.4); // Desaceleração com colisão
+          audio.playCrash();
         }
-      }
+      });
 
       document.getElementById('hud-speed').innerText = Math.round(speed);
       document.getElementById('hud-time').innerText = timeRemaining.toFixed(1);
-      document.getElementById('hud-score').innerText = score;
       document.getElementById('hud-progress').innerText = Math.round((position / trackTotalLength) * 100) + '%';
       document.getElementById('nitro-bar').style.width = nitroAmount + '%';
     }
@@ -565,7 +642,7 @@
       const w = canvas.width;
       const h = canvas.height;
 
-      const skyHeight = h * 0.45;
+      const skyHeight = h * (cameraMode === 2 ? 0.35 : 0.45);
       const skyGrad = ctx.createLinearGradient(0, 0, 0, skyHeight);
       skyGrad.addColorStop(0, selectedTrack.skyGradient[0]);
       skyGrad.addColorStop(1, selectedTrack.skyGradient[selectedTrack.skyGradient.length - 1]);
@@ -577,7 +654,7 @@
 
       const baseIndex = Math.floor(position / segmentLength) % segments.length;
       let dx = 0;
-      const camHeight = 1000;
+      const camHeight = cameraMode === 2 ? 1600 : (cameraMode === 1 ? 750 : 1000);
       const trackTotalLength = segments.length * segmentLength;
 
       for (let n = 0; n < drawDistance; n++) {
@@ -606,35 +683,23 @@
         ctx.fillStyle = selectedTrack.roadColor;
         drawPoly(seg.p1.screen.x - seg.p1.screen.w, seg.p1.screen.y, seg.p1.screen.x + seg.p1.screen.w, seg.p1.screen.y, seg.p2.screen.x + seg.p2.screen.w, seg.p2.screen.y, seg.p2.screen.x - seg.p2.screen.w, seg.p2.screen.y);
 
-        if (isDark) {
-          ctx.fillStyle = selectedTrack.lineColor;
-          const lw1 = seg.p1.screen.w * 0.03;
-          const lw2 = seg.p2.screen.w * 0.03;
-          drawPoly(seg.p1.screen.x - lw1, seg.p1.screen.y, seg.p1.screen.x + lw1, seg.p1.screen.y, seg.p2.screen.x + lw2, seg.p2.screen.y, seg.p2.screen.x - lw2, seg.p2.screen.y);
-        }
-
-        // Renderizar Moedas Brilhantes na Pista
-        if (seg.sprite) {
-          const sx = seg.p1.screen.x + seg.p1.screen.scale * seg.sprite.offset * roadWidth * w / 2;
-          const sy = seg.p1.screen.y;
-          const size = seg.p1.screen.scale * 1200;
-
-          if (seg.sprite.type === 'coin') {
-            ctx.fillStyle = '#ffcc00';
-            ctx.beginPath();
-            ctx.arc(sx, sy - size * 0.3, Math.max(4, size * 0.22), 0, Math.PI * 2);
-            ctx.fill();
-            ctx.strokeStyle = '#fff';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-          } else if (seg.sprite.type === 'scenery') {
-            ctx.fillStyle = '#00ffcc';
-            ctx.fillRect(sx - size * 0.1, sy - size, size * 0.2, size);
+        // Renderizar Tráfego de F1
+        traffic.forEach(t => {
+          if (Math.floor(t.segmentIndex) === seg.index) {
+            const tx = seg.p1.screen.x + seg.p1.screen.scale * t.offset * roadWidth * w / 2;
+            const ty = seg.p1.screen.y;
+            const tScale = seg.p1.screen.scale * 1000;
+            drawFormula1Car(tx, ty, t.car.color, t.car.accent, tScale);
           }
-        }
+        });
       }
 
-      drawFormula1Car(w / 2, h - 75, selectedCar.color, selectedCar.accent);
+      // Renderizar Veículo do Jogador de acordo com a Câmera
+      if (cameraMode === 0 || cameraMode === 2) {
+        drawFormula1Car(w / 2, h - 70, selectedCar.color, selectedCar.accent, 1);
+      } else if (cameraMode === 1) {
+        drawCockpitView(w, h);
+      }
     }
 
     function drawPoly(x1, y1, x2, y2, x3, y3, x4, y4) {
@@ -647,30 +712,39 @@
       ctx.fill();
     }
 
-    function drawFormula1Car(x, y, color, accent) {
+    function drawFormula1Car(x, y, color, accent, scale = 1) {
+      const w = 80 * scale;
+      const h = 40 * scale;
       ctx.fillStyle = '#111';
-      ctx.fillRect(x - 42, y - 48, 84, 10);
-      ctx.fillStyle = accent;
-      ctx.fillRect(x - 42, y - 48, 84, 3);
-
-      ctx.fillStyle = '#111';
-      ctx.fillRect(x - 52, y - 35, 16, 26);
-      ctx.fillRect(x + 36, y - 35, 16, 26);
-
+      ctx.fillRect(x - w / 2, y - h, w, h * 0.2);
       ctx.fillStyle = color;
-      ctx.fillRect(x - 22, y - 40, 44, 45);
+      ctx.fillRect(x - w * 0.3, y - h * 0.8, w * 0.6, h * 0.7);
+      ctx.fillStyle = accent;
+      ctx.fillRect(x - w * 0.4, y - h * 0.3, w * 0.8, h * 0.2);
+    }
 
-      ctx.fillStyle = '#ffcc00';
+    function drawCockpitView(w, h) {
+      // Visão Interna do Cockpit de F1
+      ctx.fillStyle = '#0a0a0d';
       ctx.beginPath();
-      ctx.arc(x, y - 28, 7, 0, Math.PI * 2);
+      ctx.moveTo(0, h);
+      ctx.lineTo(w * 0.25, h * 0.65);
+      ctx.lineTo(w * 0.75, h * 0.65);
+      ctx.lineTo(w, h);
       ctx.fill();
 
-      ctx.fillStyle = accent;
-      ctx.fillRect(x - 32, y - 20, 64, 8);
+      // Volante com Display Digital
+      ctx.fillStyle = '#181820';
+      ctx.beginPath();
+      ctx.arc(w / 2, h - 40, 110, Math.PI, Math.PI * 2);
+      ctx.fill();
 
-      ctx.fillStyle = '#111';
-      ctx.fillRect(x - 45, y - 15, 12, 22);
-      ctx.fillRect(x + 33, y - 15, 12, 22);
+      // Tela do Volante
+      ctx.fillStyle = '#002b36';
+      ctx.fillRect(w / 2 - 40, h - 110, 80, 45);
+      ctx.fillStyle = '#00f0ff';
+      ctx.font = '14px Orbitron';
+      ctx.fillText(`${Math.round(speed)} KM/H`, w / 2 - 32, h - 82);
     }
 
     function gameLoop(now) {
@@ -724,7 +798,6 @@
       position = 0;
       speed = 0;
       playerX = 0;
-      score = 0;
       nitroAmount = 100;
       timeRemaining = selectedTrack.timeLimit;
       isPlaying = true;
@@ -745,23 +818,31 @@
       if (isWin) {
         resultTitle.innerText = "🏆 FASE CONCLUÍDA!";
         resultTitle.style.color = "#ffcc00";
-        resultDesc.innerText = `Moedas Coletadas: ${score}`;
+        resultDesc.innerText = `Excelente pilotagem! Próxima fase liberada.`;
         
-        // Destravar próxima fase
         const currentIndex = TRACKS.findIndex(t => t.id === selectedTrack.id);
         if (currentIndex < TRACKS.length - 1) {
           TRACKS[currentIndex + 1].unlocked = true;
           saveProgress();
-          selectedTrack = TRACKS[currentIndex + 1]; // Avançar automaticamente para a próxima
+          selectedTrack = TRACKS[currentIndex + 1];
         }
       } else {
         resultTitle.innerText = "⏳ TEMPO ESGOTADO!";
         resultTitle.style.color = "#ff0055";
-        resultDesc.innerText = `Moedas perdidas. Tente novamente!`;
+        resultDesc.innerText = `Sua F1 precisa de mais velocidade. Tente novamente!`;
       }
 
       document.getElementById('result-overlay').classList.remove('hidden');
     }
+
+    // Ações dos Botões Superiores no HUD
+    document.getElementById('btn-cam-top').onclick = () => {
+      cameraMode = (cameraMode + 1) % 3;
+    };
+    document.getElementById('btn-audio-top').onclick = () => {
+      const active = audio.toggleMusic();
+      document.getElementById('btn-audio-top').innerText = active ? '🎵 MÚSICA' : '🔇 MUTADO';
+    };
 
     document.getElementById('result-btn').onclick = () => {
       document.getElementById('result-overlay').classList.add('hidden');
@@ -771,6 +852,7 @@
 
     document.getElementById('start-btn').onclick = startGame;
 
+    // Vinculação de Controles Touch / MOUSE
     const bindControl = (id, key) => {
       const btn = document.getElementById(id);
       const press = (e) => { e.preventDefault(); keys[key] = true; btn.classList.add('pressed'); };
@@ -787,6 +869,23 @@
     bindControl('btn-accel', 'accel');
     bindControl('btn-brake', 'brake');
     bindControl('btn-turbo', 'turbo');
+
+    // Suporte ao Teclado no Computador
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
+      if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
+      if (e.key === 'ArrowUp' || e.key === 'w') keys.accel = true;
+      if (e.key === 'ArrowDown' || e.key === 's') keys.brake = true;
+      if (e.key === ' ') keys.turbo = true;
+      if (e.key === 'c' || e.key === 'C') cameraMode = (cameraMode + 1) % 3;
+    });
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
+      if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
+      if (e.key === 'ArrowUp' || e.key === 'w') keys.accel = false;
+      if (e.key === 'ArrowDown' || e.key === 's') keys.brake = false;
+      if (e.key === ' ') keys.turbo = false;
+    });
 
     loadSavedProgress();
     initUI();
