@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SUPER CAR - Ultra Smooth Arcade PWA</title>
+  <title>SUPER CAR - Ultra Arcade PWA</title>
   
   <!-- Configurações PWA -->
   <meta name="theme-color" content="#0f172a">
@@ -47,6 +47,7 @@
       height: 100%;
       object-fit: contain;
     }
+    
     /* UI Overlay */
     .overlay {
       position: absolute;
@@ -58,10 +59,11 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: rgba(5, 5, 12, 0.88);
+      background: rgba(5, 5, 12, 0.9);
       backdrop-filter: blur(8px);
       z-index: 10;
       transition: opacity 0.3s ease;
+      padding: 20px;
     }
     .overlay.hidden {
       opacity: 0;
@@ -69,7 +71,7 @@
     }
     .title {
       font-family: 'Orbitron', sans-serif;
-      font-size: 3.5rem;
+      font-size: 3.2rem;
       font-weight: 900;
       font-style: italic;
       text-transform: uppercase;
@@ -77,29 +79,39 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 30px rgba(255, 0, 85, 0.4);
-      margin-bottom: 5px;
+      margin-bottom: 2px;
       letter-spacing: 2px;
       text-align: center;
     }
     .subtitle {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: #00f0ff;
       letter-spacing: 4px;
       text-transform: uppercase;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      color: #aaa;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
     }
     
     /* Grid de Seleção de Fases */
     .tracks-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-      width: 90%;
-      max-width: 950px;
-      margin-bottom: 20px;
+      gap: 10px;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 15px;
     }
     @media (max-width: 850px) {
       .tracks-grid { grid-template-columns: repeat(3, 1fr); }
+      .title { font-size: 2.2rem; }
     }
     @media (max-width: 550px) {
       .tracks-grid { grid-template-columns: repeat(2, 1fr); }
@@ -107,69 +119,49 @@
     .track-card {
       background: rgba(255, 255, 255, 0.05);
       border: 2px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 12px;
+      border-radius: 10px;
+      padding: 10px;
       cursor: pointer;
       transition: all 0.2s ease;
       text-align: center;
       position: relative;
-      overflow: hidden;
     }
     .track-card:hover:not(.locked) {
       border-color: #00f0ff;
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 240, 255, 0.25);
+      transform: translateY(-3px);
       background: rgba(0, 240, 255, 0.1);
     }
     .track-card.active {
       border-color: #ff0055;
-      background: rgba(255, 0, 85, 0.15);
-      box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
+      background: rgba(255, 0, 85, 0.2);
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.4);
     }
     .track-card.locked {
       opacity: 0.4;
       cursor: not-allowed;
       filter: grayscale(0.8);
     }
-    .track-icon {
-      font-size: 2rem;
-      margin-bottom: 5px;
-    }
-    .track-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #fff;
-    }
-    .track-desc {
-      font-size: 0.75rem;
-      color: #aaa;
-      margin-top: 3px;
-    }
-    .lock-badge {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      font-size: 0.8rem;
-    }
+    .track-icon { font-size: 1.8rem; margin-bottom: 3px; }
+    .track-name { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; font-weight: 700; color: #fff; }
 
-    /* Car Garagem Horizontal */
-    .garage-container {
+    /* Selection da Garagem */
+    .garage-grid {
       display: flex;
-      gap: 15px;
-      margin-bottom: 25px;
+      gap: 10px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
       justify-content: center;
+      max-width: 900px;
     }
     .car-card {
       background: rgba(255, 255, 255, 0.05);
       border: 2px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 10px 18px;
+      border-radius: 8px;
+      padding: 8px 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       transition: all 0.2s ease;
     }
     .car-card:hover {
@@ -178,22 +170,21 @@
     }
     .car-card.active {
       border-color: #ffcc00;
-      background: rgba(255, 204, 0, 0.2);
-      box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+      background: rgba(255, 204, 0, 0.25);
+      box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
     }
     .car-color-dot {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      box-shadow: 0 0 8px currentColor;
     }
 
-    /* Botões */
+    /* Botão Start */
     .btn {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 900;
-      padding: 14px 45px;
+      padding: 12px 40px;
       border: none;
       border-radius: 50px;
       background: linear-gradient(90deg, #ff0055, #ff5500);
@@ -209,7 +200,7 @@
       box-shadow: 0 0 35px rgba(255, 0, 85, 0.8);
     }
 
-    /* HUD */
+    /* HUD em jogo */
     #hud {
       position: absolute;
       top: 0;
@@ -220,8 +211,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 20px;
-      box-sizing: border-box;
+      padding: 15px;
       z-index: 5;
     }
     .hud-top {
@@ -230,91 +220,111 @@
       align-items: flex-start;
     }
     .hud-box {
-      background: rgba(5, 5, 12, 0.7);
+      background: rgba(5, 5, 12, 0.75);
       border: 1px solid rgba(0, 240, 255, 0.3);
-      padding: 10px 18px;
-      border-radius: 10px;
-      backdrop-filter: blur(5px);
+      padding: 8px 15px;
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
     }
     .hud-label {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #00f0ff;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
     .hud-value {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 900;
       color: #fff;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
+
+    /* Nitro Bar */
+    .nitro-container {
+      width: 180px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #00f0ff;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .nitro-bar {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #00f0ff, #ff00ff);
+      transition: width 0.1s linear;
+    }
+
     .speedometer {
       position: absolute;
-      bottom: 25px;
-      right: 25px;
+      bottom: 20px;
+      right: 20px;
       background: rgba(5, 5, 12, 0.85);
       border: 2px solid #ff0055;
       border-radius: 50%;
-      width: 110px;
-      height: 110px;
+      width: 100px;
+      height: 100px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
     }
     .speed-val {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 900;
       color: #fff;
       line-height: 0.9;
     }
-    .speed-unit {
-      font-size: 0.65rem;
-      color: #ff0055;
-      letter-spacing: 1px;
-      margin-top: 4px;
-    }
+    .speed-unit { font-size: 0.65rem; color: #ff0055; letter-spacing: 1px; margin-top: 2px; }
 
-    /* Controles Mobile Touch */
-    .touch-controls {
+    /* Controles de Tela Virtuais (Touch & Click) */
+    .touch-controls-left {
       position: absolute;
       bottom: 20px;
       left: 20px;
-      display: none;
-      gap: 15px;
+      display: flex;
+      gap: 12px;
+      pointer-events: auto;
+    }
+    .touch-controls-right {
+      position: absolute;
+      bottom: 20px;
+      right: 130px;
+      display: flex;
+      gap: 10px;
       pointer-events: auto;
     }
     .touch-btn {
-      width: 65px;
-      height: 65px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.15);
       border: 2px solid rgba(255, 255, 255, 0.3);
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       color: white;
       backdrop-filter: blur(4px);
       touch-action: manipulation;
+      cursor: pointer;
     }
     .touch-btn:active {
       background: rgba(0, 240, 255, 0.4);
       border-color: #00f0ff;
     }
-    .touch-right {
-      position: absolute;
-      bottom: 20px;
-      right: 150px;
-      display: none;
-      gap: 15px;
-      pointer-events: auto;
+    .btn-turbo {
+      background: rgba(255, 0, 85, 0.3);
+      border-color: #ff0055;
+      font-weight: bold;
+      font-size: 1rem;
+      font-family: 'Orbitron', sans-serif;
     }
-    @media (max-width: 900px) {
-      .touch-controls, .touch-right { display: flex; }
+    .btn-turbo:active {
+      background: rgba(255, 0, 85, 0.7);
     }
   </style>
 </head>
@@ -326,11 +336,13 @@
     <!-- UI Overlay / Menus -->
     <div id="menu-overlay" class="overlay">
       <h1 class="title">SUPER CAR</h1>
-      <div class="subtitle">Ultra Performance Arcade</div>
+      <div class="subtitle">Ultimate Racing Experience</div>
 
+      <div class="section-title">Escolha a Pista / Fase</div>
       <div class="tracks-grid" id="tracks-grid"></div>
 
-      <div class="garage-container" id="garage-container"></div>
+      <div class="section-title">Garagem / Escolha seu Veículo</div>
+      <div class="garage-grid" id="garage-grid"></div>
 
       <button id="start-btn" class="btn">INICIAR CORRIDA</button>
     </div>
@@ -339,15 +351,16 @@
     <div id="hud" style="display: none;">
       <div class="hud-top">
         <div class="hud-box">
-          <div class="hud-label">Tempo Restante</div>
+          <div class="hud-label">Tempo</div>
           <div class="hud-value" id="hud-time">60.0</div>
         </div>
         <div class="hud-box" style="text-align: center;">
           <div class="hud-label" id="hud-track-name">FASE</div>
           <div class="hud-value" id="hud-progress" style="color: #00f0ff; font-size: 1.2rem;">0%</div>
+          <div class="nitro-container"><div class="nitro-bar" id="nitro-bar"></div></div>
         </div>
         <div class="hud-box" style="text-align: right;">
-          <div class="hud-label">Pontos / Moedas</div>
+          <div class="hud-label">Pontos</div>
           <div class="hud-value" id="hud-score">0</div>
         </div>
       </div>
@@ -357,12 +370,13 @@
         <div class="speed-unit">KM/H</div>
       </div>
 
-      <!-- Controles Virtuais Touch -->
-      <div class="touch-controls">
+      <!-- Controles Virtuais na Tela -->
+      <div class="touch-controls-left">
         <div class="touch-btn" id="btn-left">◀</div>
         <div class="touch-btn" id="btn-right">▶</div>
       </div>
-      <div class="touch-right">
+      <div class="touch-controls-right">
+        <div class="touch-btn btn-turbo" id="btn-turbo">⚡</div>
         <div class="touch-btn" id="btn-accel" style="background: rgba(0,255,100,0.25);">▲</div>
         <div class="touch-btn" id="btn-brake" style="background: rgba(255,0,50,0.25);">▼</div>
       </div>
@@ -371,100 +385,51 @@
 
   <script>
     /* ==========================================================================
-       1. DEFINIÇÃO DAS FASES E PAISAGENS
+       1. FASES E CARROS (INCLUINDO FERRARI)
        ========================================================================== */
     const TRACKS = [
       {
-        id: 'synthwave',
-        name: 'Synthwave City',
-        desc: 'Cidade Neon & Prédios Cyber',
-        icon: '🌃',
-        unlocked: true,
-        length: 1000,
-        timeLimit: 55,
-        skyGradient: ['#0d0221', '#260859', '#ff0055'],
-        groundColor: '#0a0a16',
-        grassColors: ['#120826', '#1a0b36'],
-        rumbleColors: ['#ff0055', '#00f0ff'],
-        roadColor: '#181828',
-        lineColor: '#ffffff',
-        sceneryType: 'city'
+        id: 'synthwave', name: 'Synthwave City', icon: '🌃', unlocked: true, length: 1000, timeLimit: 55,
+        skyGradient: ['#0d0221', '#260859', '#ff0055'], groundColor: '#0a0a16',
+        grassColors: ['#120826', '#1a0b36'], rumbleColors: ['#ff0055', '#00f0ff'],
+        roadColor: '#181828', lineColor: '#ffffff'
       },
       {
-        id: 'desert',
-        name: 'Blazing Desert',
-        desc: 'Dunas de Areia & Sol Ardente',
-        icon: '🏜️',
-        unlocked: false,
-        length: 1200,
-        timeLimit: 50,
-        skyGradient: ['#2b0400', '#8c1c03', '#ff7700'],
-        groundColor: '#4a1500',
-        grassColors: ['#cc5200', '#b34700'],
-        rumbleColors: ['#ffffff', '#ff3300'],
-        roadColor: '#332218',
-        lineColor: '#ffcc00',
-        sceneryType: 'desert'
+        id: 'desert', name: 'Blazing Desert', icon: '🏜️', unlocked: false, length: 1200, timeLimit: 50,
+        skyGradient: ['#2b0400', '#8c1c03', '#ff7700'], groundColor: '#4a1500',
+        grassColors: ['#cc5200', '#b34700'], rumbleColors: ['#ffffff', '#ff3300'],
+        roadColor: '#332218', lineColor: '#ffcc00'
       },
       {
-        id: 'snow',
-        name: 'Snow Aurora',
-        desc: 'Montanhas Geladas & Aurora',
-        icon: '🏔️',
-        unlocked: false,
-        length: 1300,
-        timeLimit: 48,
-        skyGradient: ['#021029', '#0b355c', '#00ffcc'],
-        groundColor: '#dbeeff',
-        grassColors: ['#a6d2ed', '#8cbcdb'],
-        rumbleColors: ['#0088ff', '#ffffff'],
-        roadColor: '#2c3540',
-        lineColor: '#ffffff',
-        sceneryType: 'snow'
+        id: 'snow', name: 'Snow Aurora', icon: '🏔️', unlocked: false, length: 1300, timeLimit: 48,
+        skyGradient: ['#021029', '#0b355c', '#00ffcc'], groundColor: '#dbeeff',
+        grassColors: ['#a6d2ed', '#8cbcdb'], rumbleColors: ['#0088ff', '#ffffff'],
+        roadColor: '#2c3540', lineColor: '#ffffff'
       },
       {
-        id: 'tropical',
-        name: 'Tropical Sunset',
-        desc: 'Praia, Pôr do Sol & Palmeiras',
-        icon: '🌅',
-        unlocked: false,
-        length: 1400,
-        timeLimit: 45,
-        skyGradient: ['#1c002b', '#7b0051', '#ff5500', '#ffcc00'],
-        groundColor: '#2b1a09',
-        grassColors: ['#0d5e3a', '#08472b'],
-        rumbleColors: ['#ffcc00', '#ffffff'],
-        roadColor: '#242424',
-        lineColor: '#ffffff',
-        sceneryType: 'tropical'
+        id: 'tropical', name: 'Tropical Sunset', icon: '🌅', unlocked: false, length: 1400, timeLimit: 45,
+        skyGradient: ['#1c002b', '#7b0051', '#ff5500', '#ffcc00'], groundColor: '#2b1a09',
+        grassColors: ['#0d5e3a', '#08472b'], rumbleColors: ['#ffcc00', '#ffffff'],
+        roadColor: '#242424', lineColor: '#ffffff'
       },
       {
-        id: 'cyber',
-        name: 'Cyber Highway',
-        desc: 'Pista Futurista Neon',
-        icon: '⚡',
-        unlocked: false,
-        length: 1500,
-        timeLimit: 42,
-        skyGradient: ['#000000', '#051923', '#006466'],
-        groundColor: '#020b14',
-        grassColors: ['#003554', '#051923'],
-        rumbleColors: ['#00ffcc', '#ff00ff'],
-        roadColor: '#0a1118',
-        lineColor: '#00ffcc',
-        sceneryType: 'cyber'
+        id: 'cyber', name: 'Cyber Highway', icon: '⚡', unlocked: false, length: 1500, timeLimit: 42,
+        skyGradient: ['#000000', '#051923', '#006466'], groundColor: '#020b14',
+        grassColors: ['#003554', '#051923'], rumbleColors: ['#00ffcc', '#ff00ff'],
+        roadColor: '#0a1118', lineColor: '#00ffcc'
       }
     ];
 
     const CARS = [
-      { id: 'sport', name: 'Super Sport GT', color: '#ff0055', maxSpeed: 280, accel: 0.22, handling: 0.003 },
-      { id: 'hyper', name: 'Hyper Thunderbolt', color: '#00f0ff', maxSpeed: 310, accel: 0.25, handling: 0.0032 },
-      { id: 'cyber', name: 'Cyber Phantom', color: '#bf00ff', maxSpeed: 330, accel: 0.28, handling: 0.0035 },
-      { id: 'apex', name: 'Apex Venom', color: '#ffcc00', maxSpeed: 350, accel: 0.30, handling: 0.0038 }
+      { id: 'ferrari', name: 'Ferrari F8', color: '#ff0000', maxSpeed: 360, accel: 0.35, handling: 0.0038 },
+      { id: 'lambo', name: 'Lambo Aventador', color: '#ffe600', maxSpeed: 350, accel: 0.32, handling: 0.0036 },
+      { id: 'porsche', name: 'Porsche 911', color: '#00f0ff', maxSpeed: 330, accel: 0.28, handling: 0.0034 },
+      { id: 'mclaren', name: 'McLaren P1', color: '#ff5500', maxSpeed: 340, accel: 0.30, handling: 0.0035 },
+      { id: 'bugatti', name: 'Bugatti Chiron', color: '#0055ff', maxSpeed: 380, accel: 0.38, handling: 0.0040 }
     ];
 
     /* ==========================================================================
-       2. MOTOR DE ÁUDIO OTIMIZADO
+       2. GERADOR DE SENSÇÃO DE ÁUDIO
        ========================================================================== */
     class SoundEngine {
       constructor() {
@@ -480,7 +445,6 @@
         try {
           const AudioCtx = window.AudioContext || window.webkitAudioContext;
           this.ctx = new AudioCtx();
-
           this.engineOsc = this.ctx.createOscillator();
           this.engineGain = this.ctx.createGain();
           this.engineOsc.type = 'sawtooth';
@@ -491,9 +455,9 @@
           this.engineOsc.start();
         } catch (e) {}
       }
-      updateEngine(speedRatio) {
+      updateEngine(ratio) {
         if (!this.ctx || !this.engineOsc) return;
-        const freq = 40 + speedRatio * 140;
+        const freq = 40 + ratio * 160;
         this.engineOsc.frequency.setTargetAtTime(freq, this.ctx.currentTime, 0.08);
       }
       playCoin() {
@@ -519,7 +483,7 @@
           const gain = this.ctx.createGain();
           osc.type = 'square';
           osc.frequency.setValueAtTime(90, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(25, this.ctx.currentTime + 0.2);
+          osc.frequency.exponentialRampToValueAtTime(20, this.ctx.currentTime + 0.2);
           gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
           gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
           osc.connect(gain);
@@ -533,16 +497,17 @@
     const audio = new SoundEngine();
 
     /* ==========================================================================
-       3. ENGINE 3D LEVE & ALTA PERFORMANCE
+       3. ESTRUTURA E FÍSICA DO JOGO
        ========================================================================== */
     const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d', { alpha: false }); // Desativa suporte alpha desnecessário
+    const ctx = canvas.getContext('2d', { alpha: false });
 
     let selectedTrack = TRACKS[0];
     let selectedCar = CARS[0];
     let isPlaying = false;
     let score = 0;
     let timeRemaining = 0;
+    let nitroAmount = 100;
 
     let position = 0;
     let speed = 0;
@@ -550,11 +515,11 @@
     const segmentLength = 200;
     const cameraDepth = 0.84;
     const roadWidth = 2000;
-    const drawDistance = 60; // Reduzido de 120 para 60 para ultra fluidez
+    const drawDistance = 60;
 
     let segments = [];
     let carsTraffic = [];
-    const keys = { left: false, right: false, accel: false, brake: false };
+    const keys = { left: false, right: false, accel: false, brake: false, turbo: false };
 
     function loadSavedProgress() {
       try {
@@ -588,7 +553,6 @@
 
       for (let i = 0; i < numSegments; i++) {
         let curve = 0;
-
         if (i > 80 && i < 220) curve = 2;
         if (i > 300 && i < 480) curve = -3;
         if (i > 550 && i < 750) curve = 3.5;
@@ -601,7 +565,6 @@
           sprite = { type: 'scenery', offset: Math.random() > 0.5 ? 1.6 : -1.6 };
         }
 
-        // Estrutura pré-alocada e otimizada
         segments.push({
           index: i,
           p1: { camera: {}, screen: {} },
@@ -634,7 +597,7 @@
     }
 
     /* ==========================================================================
-       4. LOOP PRINCIPAL DE ATUALIZAÇÃO E DESENHO
+       4. LOOP PRINCIPAL
        ========================================================================== */
     let lastTime = performance.now();
 
@@ -648,20 +611,32 @@
         return;
       }
 
-      // Aceleração / Frenagem
+      // Cálculo de Nitro
+      let maxSpeedAllowed = selectedCar.maxSpeed;
+      let accelMultiplier = 1;
+
+      if (keys.turbo && nitroAmount > 0) {
+        maxSpeedAllowed += 80;
+        accelMultiplier = 2.0;
+        nitroAmount = Math.max(0, nitroAmount - 40 * dt);
+      } else {
+        nitroAmount = Math.min(100, nitroAmount + 5 * dt);
+      }
+
+      // Aceleração e Frenagem
       if (keys.accel) {
-        speed += selectedCar.accel * 380;
+        speed += selectedCar.accel * 400 * accelMultiplier;
       } else if (keys.brake) {
-        speed -= selectedCar.accel * 550;
+        speed -= selectedCar.accel * 600;
       } else {
         speed -= 40;
       }
 
-      speed = Math.max(0, Math.min(speed, selectedCar.maxSpeed));
+      speed = Math.max(0, Math.min(speed, maxSpeedAllowed));
 
       const currentSegmentIndex = Math.floor(position / segmentLength) % segments.length;
       const currentSegment = segments[currentSegmentIndex];
-      const speedRatio = speed / selectedCar.maxSpeed;
+      const speedRatio = speed / maxSpeedAllowed;
 
       if (keys.left) playerX -= selectedCar.handling * speedRatio * 1400;
       if (keys.right) playerX += selectedCar.handling * speedRatio * 1400;
@@ -687,6 +662,7 @@
       if (currentSegment.sprite && currentSegment.sprite.type === 'coin') {
         if (Math.abs(playerX - currentSegment.sprite.offset) < 0.45) {
           score += 250;
+          nitroAmount = Math.min(100, nitroAmount + 25);
           audio.playCoin();
           currentSegment.sprite = null;
         }
@@ -704,18 +680,19 @@
         }
       }
 
-      // HUD Update
+      // Atualizar HUD
       document.getElementById('hud-speed').innerText = Math.round(speed);
       document.getElementById('hud-time').innerText = timeRemaining.toFixed(1);
       document.getElementById('hud-score').innerText = score;
       document.getElementById('hud-progress').innerText = Math.round((position / trackTotalLength) * 100) + '%';
+      document.getElementById('nitro-bar').style.width = nitroAmount + '%';
     }
 
     function render() {
       const w = canvas.width;
       const h = canvas.height;
 
-      // 1. Céu (Preenchimento Direto sem objetos pesados)
+      // Céu
       const skyHeight = h * 0.45;
       const skyGrad = ctx.createLinearGradient(0, 0, 0, skyHeight);
       skyGrad.addColorStop(0, selectedTrack.skyGradient[0]);
@@ -723,11 +700,11 @@
       ctx.fillStyle = skyGrad;
       ctx.fillRect(0, 0, w, skyHeight);
 
-      // 2. Chão
+      // Chão
       ctx.fillStyle = selectedTrack.groundColor;
       ctx.fillRect(0, skyHeight, w, h - skyHeight);
 
-      // 3. Pista (Projeção Limitada a 60 segmentos para 60 FPS fluídos)
+      // Pista
       const baseIndex = Math.floor(position / segmentLength) % segments.length;
       let dx = 0;
       const camHeight = 1000;
@@ -790,7 +767,7 @@
         }
       }
 
-      // 4. Carro do Jogador
+      // Carro do Jogador
       drawPlayerCar(w / 2, h - 70, selectedCar.color);
     }
 
@@ -821,7 +798,6 @@
     }
 
     function gameLoop(now) {
-      // Delta Time travado em 0.033 max para evitar pulos ou travamento abrupto
       const dt = Math.min(0.033, (now - lastTime) / 1000);
       lastTime = now;
 
@@ -832,7 +808,7 @@
     }
 
     /* ==========================================================================
-       5. INTERFACE & CONTROLES
+       5. INTERFACE & EVENTOS DE CONTROLE
        ========================================================================== */
     function initUI() {
       const tracksGrid = document.getElementById('tracks-grid');
@@ -841,10 +817,8 @@
         const card = document.createElement('div');
         card.className = `track-card ${track.unlocked ? '' : 'locked'} ${track.id === selectedTrack.id ? 'active' : ''}`;
         card.innerHTML = `
-          ${!track.unlocked ? '<span class="lock-badge">🔒</span>' : ''}
           <div class="track-icon">${track.icon}</div>
           <div class="track-name">${track.name}</div>
-          <div class="track-desc">${track.desc}</div>
         `;
         card.onclick = () => {
           if (!track.unlocked) return;
@@ -855,21 +829,21 @@
         tracksGrid.appendChild(card);
       });
 
-      const garageContainer = document.getElementById('garage-container');
-      garageContainer.innerHTML = '';
+      const garageGrid = document.getElementById('garage-grid');
+      garageGrid.innerHTML = '';
       CARS.forEach(car => {
         const card = document.createElement('div');
         card.className = `car-card ${car.id === selectedCar.id ? 'active' : ''}`;
         card.innerHTML = `
-          <div class="car-color-dot" style="background:${car.color}; color:${car.color};"></div>
-          <div style="font-family:'Orbitron'; font-size:0.9rem;">${car.name}</div>
+          <div class="car-color-dot" style="background:${car.color};"></div>
+          <div style="font-family:'Orbitron'; font-size:0.85rem;">${car.name}</div>
         `;
         card.onclick = () => {
           selectedCar = car;
           document.querySelectorAll('.car-card').forEach(c => c.classList.remove('active'));
           card.classList.add('active');
         };
-        garageContainer.appendChild(card);
+        garageGrid.appendChild(card);
       });
     }
 
@@ -881,6 +855,7 @@
       speed = 0;
       playerX = 0;
       score = 0;
+      nitroAmount = 100;
       timeRemaining = selectedTrack.timeLimit;
       isPlaying = true;
 
@@ -910,11 +885,13 @@
 
     document.getElementById('start-btn').onclick = startGame;
 
+    // Teclado
     window.addEventListener('keydown', e => {
       if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
       if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
       if (e.key === 'ArrowUp' || e.key === 'w') keys.accel = true;
       if (e.key === 'ArrowDown' || e.key === 's') keys.brake = true;
+      if (e.key === ' ' || e.key === 'Shift') keys.turbo = true;
     });
 
     window.addEventListener('keyup', e => {
@@ -922,17 +899,27 @@
       if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
       if (e.key === 'ArrowUp' || e.key === 'w') keys.accel = false;
       if (e.key === 'ArrowDown' || e.key === 's') keys.brake = false;
+      if (e.key === ' ' || e.key === 'Shift') keys.turbo = false;
     });
 
-    const bindTouch = (id, key) => {
+    // Eventos de Touch/Clique nos Botões da Tela
+    const bindControl = (id, key) => {
       const btn = document.getElementById(id);
-      btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[key] = true; });
-      btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[key] = false; });
+      
+      const press = (e) => { e.preventDefault(); keys[key] = true; };
+      const release = (e) => { e.preventDefault(); keys[key] = false; };
+
+      btn.addEventListener('mousedown', press);
+      btn.addEventListener('mouseup', release);
+      btn.addEventListener('touchstart', press, { passive: false });
+      btn.addEventListener('touchend', release, { passive: false });
     };
-    bindTouch('btn-left', 'left');
-    bindTouch('btn-right', 'right');
-    bindTouch('btn-accel', 'accel');
-    bindTouch('btn-brake', 'brake');
+
+    bindControl('btn-left', 'left');
+    bindControl('btn-right', 'right');
+    bindControl('btn-accel', 'accel');
+    bindControl('btn-brake', 'brake');
+    bindControl('btn-turbo', 'turbo');
 
     // Inicialização
     loadSavedProgress();
