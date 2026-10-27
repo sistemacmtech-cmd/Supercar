@@ -264,7 +264,6 @@
       font-family: 'Orbitron', sans-serif;
     }
     
-    /* Result Modal */
     #result-modal {
       text-align: center;
     }
@@ -421,8 +420,9 @@
     }
 
     function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      // Usando resolução fixa interna alta para garantir nitidez e proporção correta no canvas
+      canvas.width = window.innerWidth > 0 ? window.innerWidth : 800;
+      canvas.height = window.innerHeight > 0 ? window.innerHeight : 600;
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
@@ -616,7 +616,6 @@
         }
       }
 
-      // Desenhando Carros NPC no Tráfego
       for (let i = 0; i < carsTraffic.length; i++) {
         const npc = carsTraffic[i];
         let relZ = npc.z - position;
@@ -663,8 +662,10 @@
       const dt = Math.min(0.033, (now - lastTime) / 1000);
       lastTime = now;
 
-      update(dt);
-      render();
+      if (isPlaying) {
+        update(dt);
+        render();
+      }
 
       requestAnimationFrame(gameLoop);
     }
@@ -702,6 +703,7 @@
 
     function startGame() {
       audio.init();
+      resizeCanvas(); // Garante que o tamanho do canvas ajusta perfeitamente na hora de começar
       buildTrack(selectedTrack);
       
       position = 0;
@@ -730,7 +732,6 @@
         resultTitle.style.color = "#00f0ff";
         resultDesc.innerText = `Pontuação Total: ${score}`;
         
-        // Destravar a próxima fase
         const currentIndex = TRACKS.findIndex(t => t.id === selectedTrack.id);
         if (currentIndex < TRACKS.length - 1) {
           TRACKS[currentIndex + 1].unlocked = true;
